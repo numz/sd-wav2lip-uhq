@@ -1,0 +1,16 @@
+.idea/*
+demo/*
+**/__pycache__/
+scripts/wav2lip/checkpoints/wav2lip_gan.pth
+scripts/wav2lip/checkpoints/wav2lip.pth
+scripts/wav2lip/checkpoints/visual_quality_disc_.pth
+scripts/wav2lip/checkpoints/lipsync_expert_.pth
+scripts/wav2lip/face_detection/detection/sfd/s3fd.pth
+scripts/wav2lip/predicator/shape_predictor_68_face_landmarks.dat
+scripts/wav2lip/output/debug/*.png
+scripts/wav2lip/output/final/*.png
+scripts/wav2lip/output/images/*.png
+scripts/wav2lip/output/masks/*.png
+scripts/wav2lip/output/*.mp4
+scripts/wav2lip/output/*.aac
+scripts/wav2lip/results/result_voice.mp4
