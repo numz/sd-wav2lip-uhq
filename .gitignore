@@ -1,4 +1,4 @@
-.idea/*
+.idea/
 demo/*
 **/__pycache__/
 scripts/wav2lip/checkpoints/wav2lip_gan.pth
