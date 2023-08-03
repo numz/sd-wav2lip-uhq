@@ -43,21 +43,22 @@ class Wav2LipUHQ:
 
     def create_video_from_images(self, nb_frames):
         fps = str(self.get_framerate(self.w2l_video))
-        command = "ffmpeg -y -framerate " + fps + " -start_number 0 -i " + \
-                  self.wav2lip_folder + "/output/final/output_%05d.png -vframes " + str(nb_frames) + \
-                  " -c:v libx264 -pix_fmt yuv420p -b:v 8000k " + self.wav2lip_folder + "/output/video.mp4"
+        command = ["ffmpeg", "-y", "-framerate", fps, "-start_number", "0", "-i",
+                   self.wav2lip_folder + "/output/final/output_%05d.png", "-vframes",
+                   str(nb_frames), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-b:v", "8000k",
+                   self.wav2lip_folder + "/output/video.mp4"]
 
         self.execute_command(command)
 
     def extract_audio_from_video(self):
-        command = "ffmpeg -y -i " + self.w2l_video + " -vn -acodec copy " + \
-                  self.wav2lip_folder + "/output/output_audio.aac"
+        command = ["ffmpeg", "-y", "-i", self.w2l_video, "-vn", "-acodec", "copy",
+                   self.wav2lip_folder + "/output/output_audio.aac"]
         self.execute_command(command)
 
     def add_audio_to_video(self):
-        command = "ffmpeg -y -framerate -i " + self.wav2lip_folder + "/output/video.mp4 -i " +  \
-                  self.wav2lip_folder + "/output/output_audio.aac -c:v copy -c:a aac -strict experimental " + \
-                  self.wav2lip_folder + "/output/output_video.mp4"
+        command = ["ffmpeg", "-y", "-i", self.wav2lip_folder + "/output/video.mp4", "-i",
+                   self.wav2lip_folder + "/output/output_audio.aac", "-c:v", "copy", "-c:a", "aac", "-strict",
+                   "experimental", self.wav2lip_folder + "/output/output_video.mp4"]
         self.execute_command(command)
 
     def create_image(self, image, mask, payload, shape, img_count):
@@ -117,7 +118,7 @@ class Wav2LipUHQ:
         p.inpainting_fill = 1
         p.inpaint_full_res = 0
         p.inpaint_full_res_padding = 32
-        p.info_text = [""]
+
         p.init_images = [image]
         p.image_mask = mask
 
