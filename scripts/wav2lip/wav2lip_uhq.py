@@ -168,7 +168,7 @@ class Wav2LipUHQ:
         frame_number = 0
 
         while True:
-            print("Processing frame: " + str(frame_number) + " of " + max_frame)
+            print("Processing frame: " + str(frame_number) + " of " + max_frame + " -- ")
 
             ret, w2l_frame = vs.read()
             if not ret:
