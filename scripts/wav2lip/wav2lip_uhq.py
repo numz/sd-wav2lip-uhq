@@ -12,7 +12,7 @@ from imutils import face_utils
 import subprocess
 
 from modules import processing
-
+from pkg_resources import resource_filename
 
 class Wav2LipUHQ:
     def __init__(self, face, audio):
@@ -23,6 +23,17 @@ class Wav2LipUHQ:
         self.original_is_image = self.original_video.lower().endswith(
             ('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif'))
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.ffmpeg_binary = self.find_ffmpeg_binary()
+
+    def find_ffmpeg_binary(self):
+        for package in ['imageio_ffmpeg', 'imageio-ffmpeg']:
+            try:
+                package_path = resource_filename(package, 'binaries')
+                files = [os.path.join(package_path, f) for f in os.listdir(package_path) if f.startswith("ffmpeg-")]
+                files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+                return files[0] if files else 'ffmpeg'
+            except:
+                return 'ffmpeg'
 
     def assure_path_exists(self, path):
         dir = os.path.dirname(path)
@@ -43,7 +54,7 @@ class Wav2LipUHQ:
 
     def create_video_from_images(self, nb_frames):
         fps = str(self.get_framerate(self.w2l_video))
-        command = ["ffmpeg", "-y", "-framerate", fps, "-start_number", "0", "-i",
+        command = [self.ffmpeg_binary, "-y", "-framerate", fps, "-start_number", "0", "-i",
                    self.wav2lip_folder + "/output/final/output_%05d.png", "-vframes",
                    str(nb_frames), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-b:v", "8000k",
                    self.wav2lip_folder + "/output/video.mp4"]
@@ -51,12 +62,12 @@ class Wav2LipUHQ:
         self.execute_command(command)
 
     def extract_audio_from_video(self):
-        command = ["ffmpeg", "-y", "-i", self.w2l_video, "-vn", "-acodec", "copy",
+        command = [self.ffmpeg_binary, "-y", "-i", self.w2l_video, "-vn", "-acodec", "copy",
                    self.wav2lip_folder + "/output/output_audio.aac"]
         self.execute_command(command)
 
     def add_audio_to_video(self):
-        command = ["ffmpeg", "-y", "-i", self.wav2lip_folder + "/output/video.mp4", "-i",
+        command = [self.ffmpeg_binary, "-y", "-i", self.wav2lip_folder + "/output/video.mp4", "-i",
                    self.wav2lip_folder + "/output/output_audio.aac", "-c:v", "copy", "-c:a", "aac", "-strict",
                    "experimental", self.wav2lip_folder + "/output/output_video.mp4"]
         self.execute_command(command)

@@ -6,7 +6,7 @@ import torch, scripts.wav2lip.face_detection as face_detection
 from scripts.wav2lip.models import Wav2Lip
 import platform
 import modules.shared as shared
-
+from pkg_resources import resource_filename
 
 class W2l:
     def __init__(self, face, audio, checkpoint, nosmooth, resize_factor, pad_top, pad_bottom, pad_left, pad_right):
@@ -33,6 +33,17 @@ class W2l:
         self.checkpoint_path = self.wav2lip_folder + '/checkpoints/' + self.checkpoint + '.pth'
         self.outfile = self.wav2lip_folder + '/results/result_voice.mp4'
         print('Using {} for inference.'.format(self.device))
+        self.ffmpeg_binary = self.find_ffmpeg_binary()
+
+    def find_ffmpeg_binary(self):
+        for package in ['imageio_ffmpeg', 'imageio-ffmpeg']:
+            try:
+                package_path = resource_filename(package, 'binaries')
+                files = [os.path.join(package_path, f) for f in os.listdir(package_path) if f.startswith("ffmpeg-")]
+                files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+                return files[0] if files else 'ffmpeg'
+            except:
+                return 'ffmpeg'
 
     def get_smoothened_boxes(self, boxes, T):
         for i in range(len(boxes)):
@@ -196,7 +207,7 @@ class W2l:
 
         if not self.audio.endswith('.wav'):
             print('Extracting raw audio...')
-            command = 'ffmpeg -y -i {} -strict -2 {}'.format(self.audio, self.wav2lip_folder + '/temp/temp.wav')
+            command = self.ffmpeg_binary + ' -y -i {} -strict -2 {}'.format(self.audio, self.wav2lip_folder + '/temp/temp.wav')
 
             #subprocess.call(command, shell=True)
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
@@ -263,7 +274,7 @@ class W2l:
 
         out.release()
 
-        command = 'ffmpeg -y -i {} -i {} -strict -2 -q:v 1 {}'.format(self.audio, self.wav2lip_folder + '/temp/result.avi', self.outfile)
+        command = self.ffmpeg_binary + ' -y -i {} -i {} -strict -2 -q:v 1 {}'.format(self.audio, self.wav2lip_folder + '/temp/result.avi', self.outfile)
         #subprocess.call(command, shell=platform.system() != 'Windows')
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         stdout, stderr = process.communicate()

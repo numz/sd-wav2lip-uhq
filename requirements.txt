@@ -1,5 +1,5 @@
 imutils
-dlib
+dlib-bin
 numpy
 opencv-python
 scipy
@@ -10,3 +10,4 @@ opencv-contrib-python
 tqdm
 numba
 imutils
+imageio_ffmpeg

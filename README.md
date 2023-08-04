@@ -54,7 +54,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 4. **Padding**:  Wav2Lip uses this to add a black border around the mouth, which is useful to prevent the mouth from being cropped by the face detection. You can change the padding value to suit your needs, but the default value gives good results.
 5. **No Smooth**: If checked, the mouth will not be smoothed. This can be useful if you want to keep the original mouth shape.
 6. **Resize Factor**: This is a resize factor for the video. The default value is 1.0, but you can change it to suit your needs. This is useful if the video size is too large.
-7. Choose a good Stable diffusion checkpoint, like [delibarate_v2](https://civitai.com/models/4823/deliberate) or [revAnimated_v122](https://civitai.com/models/7371) (SDXL models don't seem to work).
+7. Choose a good Stable diffusion checkpoint, like [delibarate_v2](https://civitai.com/models/4823/deliberate) or [revAnimated_v122](https://civitai.com/models/7371) (SDXL models don't seem to work, but you can generate a SDXL image and change model for wav2lip process).
 8. Click on the "Generate" button.
 
 ## Behind the scenes
@@ -67,8 +67,9 @@ This extension operates in several stages to improve the quality of Wav2Lip-gene
 4. **Img2Img**: The script then sends the original image with the low-quality mouth and the mouth mask into Img2Img. 
 
 ## Quality tips
-- use a high quality video as input
-- use a high quality model in stable diffusion webui like [delibarate_v2](https://civitai.com/models/4823/deliberate) or [revAnimated_v122](https://civitai.com/models/7371)
+- Use a high quality image/video as input
+- Try to minimize the grain on the face on the input as much as possible, for example you can try to use "Restore faces" in img2img before use an image as wav2lip input.
+- Use a high quality model in stable diffusion webui like [delibarate_v2](https://civitai.com/models/4823/deliberate) or [revAnimated_v122](https://civitai.com/models/7371)
 
 ## Contributing
 
