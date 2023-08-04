@@ -251,7 +251,6 @@ class Wav2LipUHQ:
 
             frame_number += 1
 
-        cv2.destroyAllWindows()
         vs.release()
         if not self.original_is_image:
             vi.release()
