@@ -5,7 +5,7 @@ opencv-python
 scipy
 requests
 pillow
-librosa
+librosa==0.8.0
 opencv-contrib-python
 tqdm
 numba

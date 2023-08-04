@@ -45,6 +45,12 @@ class W2l:
             except:
                 return 'ffmpeg'
 
+    def execute_command(self, command):
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            raise RuntimeError(stderr)
+
     def get_smoothened_boxes(self, boxes, T):
         for i in range(len(boxes)):
             if i + T > len(boxes):
@@ -207,17 +213,11 @@ class W2l:
 
         if not self.audio.endswith('.wav'):
             print('Extracting raw audio...')
-            command = self.ffmpeg_binary + ' -y -i {} -strict -2 {}'.format(self.audio, self.wav2lip_folder + '/temp/temp.wav')
+            command = [self.ffmpeg_binary, "-y", "-i", self.audio, "-strict", "-2",
+                       self.wav2lip_folder + "/temp/temp.wav"]
 
-            #subprocess.call(command, shell=True)
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-            stdout, stderr = process.communicate()
-            if process.returncode != 0:
-                raise RuntimeError(stderr)
-
+            self.execute_command(command)
             self.audio = self.wav2lip_folder + '/temp/temp.wav'
-
-
 
         wav = audio.load_wav(self.audio, 16000)
         mel = audio.melspectrogram(wav)
@@ -274,9 +274,6 @@ class W2l:
 
         out.release()
 
-        command = self.ffmpeg_binary + ' -y -i {} -i {} -strict -2 -q:v 1 {}'.format(self.audio, self.wav2lip_folder + '/temp/result.avi', self.outfile)
-        #subprocess.call(command, shell=platform.system() != 'Windows')
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-        stdout, stderr = process.communicate()
-        if process.returncode != 0:
-            raise RuntimeError(stderr)
+        command = [self.ffmpeg_binary, "-y", "-i", self.audio, "-i", self.wav2lip_folder + '/temp/result.avi',
+                   "-strict", "-2", "-q:v", "1", self.outfile]
+        self.execute_command(command)
