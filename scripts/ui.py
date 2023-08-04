@@ -8,6 +8,7 @@ def on_ui_tabs():
     wav2lip_uhq_sys_extend()
 
     with gr.Blocks(analytics_enabled=False) as wav2lip_uhq_interface:
+        gr.Markdown("<div align='center'> <h3> Follow installation instructions <a href='https://github.com/numz/sd-wav2lip-uhq'> here </a> </h3> </div>")
         with gr.Row():
             video = gr.File(label="Video or Image", info="Filepath of video/image that contains faces to use")
             audio = gr.File(label="Audio", info="Filepath of video/audio file to use as raw audio source")
