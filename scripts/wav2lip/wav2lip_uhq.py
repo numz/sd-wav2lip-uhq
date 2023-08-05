@@ -225,7 +225,7 @@ class Wav2LipUHQ:
                 clone = w2l_frame.copy()
                 for (x, y) in np.concatenate((jaw, mouth, [nose])):
                     cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
-                    cv2.imwrite(debug_path + "points_" + str(frame_number) + ".png", clone)
+                cv2.imwrite(debug_path + "points_" + str(frame_number) + ".png", clone)
 
                 external_shape = np.append(jaw, [nose], axis=0)
                 kernel = np.ones((3, 3), np.uint8)
