@@ -121,6 +121,7 @@ class Wav2LipUHQ:
         p.tiling = False
         p.restore_faces = True
         p.do_not_save_samples = True
+        p.do_not_save_grid = True
         p.mask_blur = 4
         p.extra_generation_params["Mask blur"] = 4
         p.denoising_strength = 0
