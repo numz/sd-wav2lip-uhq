@@ -180,7 +180,7 @@ class Wav2LipUHQ:
         frame_number = 0
 
         while True:
-            print("Processing frame: " + str(frame_number) + " of " + max_frame + " -- ")
+            print("Processing frame: " + str(frame_number) + " of " + max_frame + " - ")
 
             ret, w2l_frame = vs.read()
             if not ret:
@@ -189,9 +189,8 @@ class Wav2LipUHQ:
             if self.original_is_image:
                 original_frame = vi
             else:
+                vi.set(cv2.CAP_PROP_POS_FRAMES, (frame_number % int(vi.get(cv2.CAP_PROP_FRAME_COUNT))) - 1)
                 ret, original_frame = vi.read()
-                if not ret:
-                    break
 
             w2l_gray = cv2.cvtColor(w2l_frame, cv2.COLOR_RGB2GRAY)
             original_gray = cv2.cvtColor(original_frame, cv2.COLOR_RGB2GRAY)
