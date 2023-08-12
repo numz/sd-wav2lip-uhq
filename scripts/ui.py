@@ -3,7 +3,7 @@ import gradio as gr
 from scripts.wav2lip.w2l import W2l
 from scripts.wav2lip.wav2lip_uhq import Wav2LipUHQ
 from modules.shared import opts, state
-
+from pathlib import Path
 def on_ui_tabs():
     wav2lip_uhq_sys_extend()
 
@@ -44,7 +44,7 @@ def on_ui_tabs():
 
             w2luhq = Wav2LipUHQ(video.name, audio.name)
             w2luhq.execute()
-            return "extensions\\sd-wav2lip-uhq\\scripts\\wav2lip\\output\\output_video.mp4"
+            return str(Path("extensions/sd-wav2lip-uhq/scripts/wav2lip/output/output_video.mp4"))
 
         generate_btn.click(
             generate, 
