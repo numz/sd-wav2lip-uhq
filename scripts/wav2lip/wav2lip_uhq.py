@@ -1,29 +1,32 @@
 import os
-import requests
-import base64
-import io
 import numpy as np
-from PIL import Image
 import cv2
 import dlib
 import torch
 import scripts.wav2lip.face_detection as face_detection
 from imutils import face_utils
 import subprocess
-
-from modules import processing
+from modules.shared import state
 from pkg_resources import resource_filename
+import modules.face_restoration
+
 
 class Wav2LipUHQ:
-    def __init__(self, face, audio):
+    def __init__(self, face, audio,mouth_mask_dilatation,erode_face_mask, mask_blur, only_mouth, resize_factor, debug=False):
         self.wav2lip_folder = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])
         self.original_video = face
         self.audio = audio
+        self.mouth_mask_dilatation = mouth_mask_dilatation
+        self.erode_face_mask = erode_face_mask
+        self.mask_blur = mask_blur
+        self.only_mouth = only_mouth
         self.w2l_video = self.wav2lip_folder + '/results/result_voice.mp4'
         self.original_is_image = self.original_video.lower().endswith(
             ('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif'))
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.ffmpeg_binary = self.find_ffmpeg_binary()
+        self.resize_factor = resize_factor
+        self.debug = debug
 
     def find_ffmpeg_binary(self):
         for package in ['imageio_ffmpeg', 'imageio-ffmpeg']:
@@ -72,73 +75,6 @@ class Wav2LipUHQ:
                    "experimental", self.wav2lip_folder + "/output/output_video.mp4"]
         self.execute_command(command)
 
-    def create_image(self, image, mask, payload, shape, img_count):
-        output_dir = self.wav2lip_folder + '/output/final/'
-        image = open(image, "rb").read()
-        image_mask = open(mask, "rb").read()
-        url = payload["url"]
-        payload = payload["payload"]
-        payload["init_images"] = ["data:image/png;base64," + base64.b64encode(image).decode('UTF-8')]
-        payload["mask"] = "data:image/png;base64," + base64.b64encode(image_mask).decode('UTF-8')
-
-        path = output_dir
-        response = requests.post(url=f'{url}', json=payload)
-        r = response.json()
-        for idx in range(len(r['images'])):
-            i = r['images'][idx]
-            image = Image.open(io.BytesIO(base64.b64decode(i.split(",", 1)[0])))
-            image_name = path + "output_" + str(img_count).rjust(5, '0') + ".png"
-            image.save(image_name)
-
-    def create_img(self, image, mask, shape, img_count):
-        image = Image.open(image).convert('RGB')
-        mask = Image.open(mask).convert('RGB')
-        output_dir = self.wav2lip_folder + '/output/final/'
-        p = processing.StableDiffusionProcessingImg2Img(
-            outpath_samples=output_dir,
-        )  # we'll set up the rest later
-
-        p.c = None
-        p.extra_network_data = None
-        p.image_conditioning = None
-        p.init_latent = None
-        p.mask_for_overlay = None
-        p.negative_prompts = None
-        p.nmask = None
-        p.overlay_images = None
-        p.paste_to = None
-        p.prompts = None
-        p.width, p.height = shape[0], shape[1]
-        p.steps = 150
-        p.seed = 65541238
-        p.seed_resize_from_h = 0
-        p.seed_resize_from_w = 0
-        p.seeds = None
-        p.subseeds = None
-        p.uc = None
-        p.sampler = None
-        p.sampler_name = "Euler a"
-        p.tiling = False
-        p.restore_faces = True
-        p.do_not_save_samples = True
-        p.do_not_save_grid = True
-        p.mask_blur = 4
-        p.extra_generation_params["Mask blur"] = 4
-        p.denoising_strength = 0
-        p.cfg_scale = 1
-        p.inpainting_mask_invert = 0
-        p.inpainting_fill = 1
-        p.inpaint_full_res = 0
-        p.inpaint_full_res_padding = 32
-
-        p.init_images = [image]
-        p.image_mask = mask
-
-        processed = processing.process_images(p)
-        results = processed.images[0]
-        image_name = output_dir + "output_" + str(img_count).rjust(5, '0') + ".png"
-        results.save(image_name)
-
     def initialize_dlib_predictor(self):
         print("[INFO] Loading the predictor...")
         detector = face_detection.FaceAlignment(face_detection.LandmarksType._2D,
@@ -158,7 +94,7 @@ class Wav2LipUHQ:
     def dilate_mouth(self, mouth, w, h):
         mask = np.zeros((w, h), dtype=np.uint8)
         cv2.fillPoly(mask, [mouth], 255)
-        kernel = np.ones((10, 10), np.uint8)
+        kernel = np.ones((self.mouth_mask_dilatation, self.mouth_mask_dilatation), np.uint8)
         dilated_mask = cv2.dilate(mask, kernel, iterations=1)
         contours, _ = cv2.findContours(dilated_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         dilated_points = contours[0].squeeze()
@@ -166,10 +102,8 @@ class Wav2LipUHQ:
 
     def execute(self):
         output_dir = self.wav2lip_folder + '/output/'
-        image_path = output_dir + "images/"
-        mask_path = output_dir + "masks/"
         debug_path = output_dir + "debug/"
-
+        final_path = self.wav2lip_folder + '/output/final/'
         detector, predictor = self.initialize_dlib_predictor()
         vs, vi = self.initialize_video_streams()
         (mstart, mend) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
@@ -180,8 +114,11 @@ class Wav2LipUHQ:
         frame_number = 0
 
         while True:
-            print("Processing frame: " + str(frame_number) + " of " + max_frame + " - ")
+            print("[INFO] Processing frame: " + str(frame_number) + " of " + max_frame + " - ", end="\r")
+            if state.interrupted:
+                break
 
+            # Read frame
             ret, w2l_frame = vs.read()
             if not ret:
                 break
@@ -192,74 +129,121 @@ class Wav2LipUHQ:
                 vi.set(cv2.CAP_PROP_POS_FRAMES, (frame_number % int(vi.get(cv2.CAP_PROP_FRAME_COUNT))) - 1)
                 ret, original_frame = vi.read()
 
+            # Convert to gray
             w2l_gray = cv2.cvtColor(w2l_frame, cv2.COLOR_RGB2GRAY)
             original_gray = cv2.cvtColor(original_frame, cv2.COLOR_RGB2GRAY)
             if w2l_gray.shape != original_gray.shape:
-                w2l_gray = cv2.resize(w2l_gray, (original_gray.shape[1], original_gray.shape[0]))
-                w2l_frame = cv2.resize(w2l_frame, (original_gray.shape[1], original_gray.shape[0]))
+                if self.resize_factor > 1:
+                    original_gray = cv2.resize(original_gray, (w2l_gray.shape[1], w2l_gray.shape[0]))
+                    original_frame = cv2.resize(original_frame, (w2l_gray.shape[1], w2l_gray.shape[0]))
+                else:
+                    w2l_gray = cv2.resize(w2l_gray, (original_gray.shape[1], original_gray.shape[0]))
+                    w2l_frame = cv2.resize(w2l_frame, (original_gray.shape[1], original_gray.shape[0]))
 
+            # Calculate diff between frames and apply threshold
             diff = np.abs(original_gray - w2l_gray)
             diff[diff > 10] = 255
             diff[diff <= 10] = 0
-            cv2.imwrite(debug_path + "diff_" + str(frame_number) + ".png", diff)
 
+            # Detect faces
             rects = detector.get_detections_for_batch(np.array([np.array(w2l_frame)]))
+
+            # Initialize mask
             mask = np.zeros_like(diff)
 
             # Process each detected face
             for (i, rect) in enumerate(rects):
-                # copy pixel from diff to mask where pixel is in rects
-                shape = predictor(original_gray, dlib.rectangle(*rect))
-                shape = face_utils.shape_to_np(shape)
+                # Get face coordinates
+                if not self.only_mouth:
+                    shape = predictor(original_gray, dlib.rectangle(*rect))
+                    shape = face_utils.shape_to_np(shape)
+                    jaw = shape[jstart:jend][1:-1]
+                    nose = shape[nstart:nend][2]
 
-                jaw = shape[jstart:jend][1:-1]
-                nose = shape[nstart:nend][2]
-
+                # Get mouth coordinates
                 shape = predictor(w2l_gray, dlib.rectangle(*rect))
                 shape = face_utils.shape_to_np(shape)
 
                 mouth = shape[mstart:mend][:-8]
                 mouth = np.delete(mouth, [3], axis=0)
-                mouth = self.dilate_mouth(mouth, original_gray.shape[0], original_gray.shape[1])
-                # affiche les points sur un clone de l'image
-                clone = w2l_frame.copy()
-                for (x, y) in np.concatenate((jaw, mouth, [nose])):
-                    cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
-                cv2.imwrite(debug_path + "points_" + str(frame_number) + ".png", clone)
+                if self.mouth_mask_dilatation > 0:
+                    mouth = self.dilate_mouth(mouth, original_gray.shape[0], original_gray.shape[1])
 
-                external_shape = np.append(jaw, [nose], axis=0)
-                kernel = np.ones((3, 3), np.uint8)
-                external_shape_pts = external_shape.reshape((-1, 1, 2))
-                mask = cv2.fillPoly(mask, [external_shape_pts], 255)
-                mask = cv2.erode(mask, kernel, iterations=5)
-                masked_diff = cv2.bitwise_and(diff, diff, mask=mask)
+                # Create mask for face
+                if not self.only_mouth:
+                    external_shape = np.append(jaw, [nose], axis=0)
+                    external_shape_pts = external_shape.reshape((-1, 1, 2))
+                    mask = cv2.fillPoly(mask, [external_shape_pts], 255)
+                    if self.erode_face_mask > 0:
+                        kernel = np.ones((self.erode_face_mask, self.erode_face_mask), np.uint8)
+                        mask = cv2.erode(mask, kernel, iterations=1)
+                    masked_diff = cv2.bitwise_and(diff, diff, mask=mask)
+                else:
+                    masked_diff = mask
+
+                # Create mask for mouth
                 cv2.fillConvexPoly(masked_diff, mouth, 255)
-                masked_save = cv2.GaussianBlur(masked_diff, (15, 15), 0)
 
-                cv2.imwrite(mask_path + 'image_' + str(frame_number).rjust(5, '0') + '.png', masked_save)
+                # Save mask
+                if self.mask_blur > 0:
+                    blur = self.mask_blur if self.mask_blur % 2 == 1 else self.mask_blur - 1
+                    masked_save = cv2.GaussianBlur(masked_diff, (blur, blur), 0)
+                else:
+                    masked_save = masked_diff
+
+                # Prepare for restoration
                 masked_diff = np.uint8(masked_diff / 255)
                 masked_diff = cv2.cvtColor(masked_diff, cv2.COLOR_GRAY2BGR)
                 dst = w2l_frame * masked_diff
-                cv2.imwrite(debug_path + "dst_" + str(frame_number) + ".png", dst)
+                original = original_frame.copy()
                 original_frame = original_frame * (1 - masked_diff) + dst
 
-                height, width, _ = original_frame.shape
-                image_name = image_path + 'image_' + str(frame_number).rjust(5, '0') + '.png'
-                mask_name = mask_path + 'image_' + str(frame_number).rjust(5, '0') + '.png'
-                cv2.imwrite(image_name, original_frame)
-                self.create_img(image_name, mask_name, (width, height), frame_number)
+                # Restore face
+                image_restored = modules.face_restoration.restore_faces(original_frame)
+
+                # Apply restored face to original image with mask attention
+                extended_mask = np.stack([masked_save]*3, axis=-1)
+                normalized_mask = extended_mask / 255.0
+                dst2 = image_restored * normalized_mask
+                original = original * (1 - normalized_mask) + dst2
+                original = original.astype(np.uint8)
+
+                # Save final image
+                cv2.imwrite(final_path + "output_" + str(frame_number).rjust(5, '0') + ".png", original)
+
+                if self.debug:
+                    clone = w2l_frame.copy()
+                    if not self.only_mouth:
+                        for (x, y) in np.concatenate((jaw, mouth, [nose])):
+                            cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
+                    else:
+                        for (x, y) in mouth:
+                            cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
+
+                    f_number = str(frame_number).rjust(5, '0')
+                    cv2.imwrite(debug_path + "diff_" + f_number+ ".png", diff)
+                    cv2.imwrite(debug_path + "points_" + f_number + ".png", clone)
+                    cv2.imwrite(debug_path + 'mask_' + f_number + '.png', masked_save)
+                    cv2.imwrite(debug_path + "dst_" + f_number + ".png", dst)
+                    cv2.imwrite(debug_path + 'image_' + f_number + '.png', original_frame)
+                    cv2.imwrite(debug_path + "face_restore_" + f_number + ".png", image_restored)
+                    cv2.imwrite(debug_path + "dst2_" + f_number + ".png", dst2)
 
             frame_number += 1
 
-        vs.release()
-        if not self.original_is_image:
-            vi.release()
+        if not state.interrupted:
+            vs.release()
+            if not self.original_is_image:
+                vi.release()
 
-        print("[INFO] Create Video output!")
-        self.create_video_from_images(frame_number - 1)
-        print("[INFO] Extract Audio from input!")
-        self.extract_audio_from_video()
-        print("[INFO] Add Audio to Video!")
-        self.add_audio_to_video()
-
-        print("[INFO] Done! file save in output/video_output.mp4")
+            print("[INFO] Create Video output!")
+            self.create_video_from_images(frame_number - 1)
+            print("[INFO] Extract Audio from input!")
+            self.extract_audio_from_video()
+            print("[INFO] Add Audio to Video!")
+            self.add_audio_to_video()
+            print("[INFO] Done! file save in output/video_output.mp4")
+            return self.wav2lip_folder + "/output/output_video.mp4"
+        else:
+            print("[INFO] Interrupted!")
+            return None

@@ -4,9 +4,9 @@ import subprocess
 from tqdm import tqdm
 import torch, scripts.wav2lip.face_detection as face_detection
 from scripts.wav2lip.models import Wav2Lip
-import platform
 import modules.shared as shared
 from pkg_resources import resource_filename
+
 
 class W2l:
     def __init__(self, face, audio, checkpoint, nosmooth, resize_factor, pad_top, pad_bottom, pad_left, pad_right):
@@ -86,7 +86,8 @@ class W2l:
         for rect, image in zip(predictions, images):
             if rect is None:
                 print("Hum : " + str(n))
-                cv2.imwrite(self.wav2lip_folder + '/temp/faulty_frame.jpg', image)  # check this frame where the face was not detected.
+                cv2.imwrite(self.wav2lip_folder + '/temp/faulty_frame.jpg',
+                            image)  # check this frame where the face was not detected.
                 raise ValueError('Face not detected! Ensure the video contains a face in all the frames.')
 
             y1 = max(0, rect[1] - pady1)

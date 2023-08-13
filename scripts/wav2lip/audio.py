@@ -1,7 +1,6 @@
 import librosa
 import librosa.filters
 import numpy as np
-# import tensorflow as tf
 from scipy import signal
 from scipy.io import wavfile
 from scripts.wav2lip.hparams import hparams as hp
@@ -13,7 +12,6 @@ def load_wav(path, sr):
 
 def save_wav(wav, path, sr):
     wav *= 32767 / max(0.01, np.max(np.abs(wav)))
-    # proposed by @dsmiller
     wavfile.write(path, sr, wav.astype(np.int16))
 
 
