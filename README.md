@@ -13,17 +13,17 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 ![Illustration](https://user-images.githubusercontent.com/800903/260311451-75d9ebeb-796b-489b-9192-65570ea0d83d.png)
 
 ## 📖 Quick Index
-* [🚀 Updates](#-Updates)
-* [🔗 Requirements](#-Requirements)
-* [💻 Installation](#-Installation)
-* [🐍 Usage](#-Usage)
-* [📖 Behind the scenes](#-Behind-the-scenes)
-* [💪 Quality tips](#-Quality-tips)
-* [📝 TODO](#-TODO)
-* [😎 Contributing](#-Contributing)
-* [🙏 Appreciation](#-Appreciation)
-* [📝 Citation](#-Citation)
-* [📜 License](#-License)
+* [🚀 Updates](#-updates)
+* [🔗 Requirements](#-requirements)
+* [💻 Installation](#-installation)
+* [🐍 Usage](#-usage)
+* [📖 Behind the scenes](#-behind-the-scenes)
+* [💪 Quality tips](#-quality-tips)
+* [📝 TODO](#-todo)
+* [😎 Contributing](#-contributing)
+* [🙏 Appreciation](#-appreciation)
+* [📝 Citation](#-citation)
+* [📜 License](#-license)
 
 ## 🚀 Updates
 
