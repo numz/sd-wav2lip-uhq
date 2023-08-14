@@ -126,7 +126,7 @@ class Wav2LipUHQ:
             if self.original_is_image:
                 original_frame = vi
             else:
-                vi.set(cv2.CAP_PROP_POS_FRAMES, (frame_number % int(vi.get(cv2.CAP_PROP_FRAME_COUNT))) - 1)
+                vi.set(cv2.CAP_PROP_POS_FRAMES, (frame_number % int(vi.get(cv2.CAP_PROP_FRAME_COUNT))))
                 ret, original_frame = vi.read()
 
             # Convert to gray
