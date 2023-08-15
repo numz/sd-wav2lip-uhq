@@ -93,7 +93,7 @@ This extension operates in several stages to improve the quality of Wav2Lip-gene
 - Use a high quality audio file as input, without background noise or music. Clean audio with a tool like [https://podcast.adobe.com/enhance](https://podcast.adobe.com/enhance).
 - Try to minimize the grain on the face on the input as much as possible. For example, you can use the "Restore faces" feature in img2img before using an image as input for Wav2Lip.
 - Dilate the mouth mask. This will help the model retain some facial motion and hide the original mouth.
-- Mask Blur less or equal to Dilate Mouth Mask.
+- Mask Blur maximum twice the value of Mouth Mask Dilate. If you want to increase the blur, increase the value of Mouth Mask Dilate otherwise the mouth will be blurred and the underlying mouth could be visible.
 
 ## 📝 TODO
 - [ ] Add Suno/Bark to generate high quality text to speech audio as wav file input (see [bark](https://github.com/suno-ai/bark/))
