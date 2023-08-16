@@ -6,13 +6,13 @@ import torch
 import scripts.wav2lip.face_detection as face_detection
 from imutils import face_utils
 import subprocess
-from modules.shared import state
+from modules.shared import state, opts
 from pkg_resources import resource_filename
 import modules.face_restoration
 
 
 class Wav2LipUHQ:
-    def __init__(self, face, audio,mouth_mask_dilatation,erode_face_mask, mask_blur, only_mouth, resize_factor, debug=False):
+    def __init__(self, face, audio,mouth_mask_dilatation,erode_face_mask, mask_blur, only_mouth, resize_factor,code_former_weight, debug=False):
         self.wav2lip_folder = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])
         self.original_video = face
         self.audio = audio
@@ -26,6 +26,7 @@ class Wav2LipUHQ:
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.ffmpeg_binary = self.find_ffmpeg_binary()
         self.resize_factor = resize_factor
+        self.code_former_weight = code_former_weight
         self.debug = debug
 
     def find_ffmpeg_binary(self):
@@ -64,6 +65,13 @@ class Wav2LipUHQ:
 
         self.execute_command(command)
 
+        command = [self.ffmpeg_binary, "-y", "-framerate", fps, "-start_number", "0", "-i",
+                   self.wav2lip_folder + "/output/face_enhanced/face_restore_%05d.png", "-vframes",
+                   str(nb_frames), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-b:v", "8000k",
+                   self.wav2lip_folder + "/output/video_enhanced.mp4"]
+
+        self.execute_command(command)
+
     def extract_audio_from_video(self):
         command = [self.ffmpeg_binary, "-y", "-i", self.w2l_video, "-vn", "-acodec", "copy",
                    self.wav2lip_folder + "/output/output_audio.aac"]
@@ -73,6 +81,11 @@ class Wav2LipUHQ:
         command = [self.ffmpeg_binary, "-y", "-i", self.wav2lip_folder + "/output/video.mp4", "-i",
                    self.wav2lip_folder + "/output/output_audio.aac", "-c:v", "copy", "-c:a", "aac", "-strict",
                    "experimental", self.wav2lip_folder + "/output/output_video.mp4"]
+        self.execute_command(command)
+
+        command = [self.ffmpeg_binary, "-y", "-i", self.wav2lip_folder + "/output/video_enhanced.mp4", "-i",
+                   self.wav2lip_folder + "/output/output_audio.aac", "-c:v", "copy", "-c:a", "aac", "-strict",
+                   "experimental", self.wav2lip_folder + "/output/output_video_enhanced.mp4"]
         self.execute_command(command)
 
     def initialize_dlib_predictor(self):
@@ -103,7 +116,8 @@ class Wav2LipUHQ:
     def execute(self):
         output_dir = self.wav2lip_folder + '/output/'
         debug_path = output_dir + "debug/"
-        final_path = self.wav2lip_folder + '/output/final/'
+        face_enhanced_path = output_dir + "face_enhanced/"
+        final_path = output_dir + 'final/'
         detector, predictor = self.initialize_dlib_predictor()
         vs, vi = self.initialize_video_streams()
         (mstart, mend) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
@@ -112,9 +126,11 @@ class Wav2LipUHQ:
 
         max_frame = str(int(vs.get(cv2.CAP_PROP_FRAME_COUNT)))
         frame_number = 0
-
+        original_codeformer_weight = opts.code_former_weight
+        opts.code_former_weight = self.code_former_weight
         while True:
             print("[INFO] Processing frame: " + str(frame_number) + " of " + max_frame + " - ", end="\r")
+            f_number = str(frame_number).rjust(5, '0')
             if state.interrupted:
                 break
 
@@ -126,30 +142,31 @@ class Wav2LipUHQ:
             if self.original_is_image:
                 original_frame = vi
             else:
-                vi.set(cv2.CAP_PROP_POS_FRAMES, (frame_number % int(vi.get(cv2.CAP_PROP_FRAME_COUNT))))
                 ret, original_frame = vi.read()
+                if not ret:
+                    vi.release()
+                    vi = cv2.VideoCapture(self.original_video)
+                    ret, original_frame = vi.read()
+
+            if w2l_frame.shape != original_frame.shape:
+                if self.resize_factor > 1:
+                    original_frame = cv2.resize(original_frame, (w2l_frame.shape[1], w2l_frame.shape[0]))
+                else:
+                    w2l_frame = cv2.resize(w2l_frame, (original_frame.shape[1], original_frame.shape[0]))
 
             # Convert to gray
-            w2l_gray = cv2.cvtColor(w2l_frame, cv2.COLOR_RGB2GRAY)
             original_gray = cv2.cvtColor(original_frame, cv2.COLOR_RGB2GRAY)
-            if w2l_gray.shape != original_gray.shape:
-                if self.resize_factor > 1:
-                    original_gray = cv2.resize(original_gray, (w2l_gray.shape[1], w2l_gray.shape[0]))
-                    original_frame = cv2.resize(original_frame, (w2l_gray.shape[1], w2l_gray.shape[0]))
-                else:
-                    w2l_gray = cv2.resize(w2l_gray, (original_gray.shape[1], original_gray.shape[0]))
-                    w2l_frame = cv2.resize(w2l_frame, (original_gray.shape[1], original_gray.shape[0]))
 
-            # Calculate diff between frames and apply threshold
-            diff = np.abs(original_gray - w2l_gray)
-            diff[diff > 10] = 255
-            diff[diff <= 10] = 0
+            # Restore face
+            image_restored = modules.face_restoration.restore_faces(w2l_frame)
+            cv2.imwrite(face_enhanced_path + "face_restore_" + f_number + ".png", image_restored)
+            image_restored_gray = cv2.cvtColor(image_restored, cv2.COLOR_RGB2GRAY)
 
             # Detect faces
-            rects = detector.get_detections_for_batch(np.array([np.array(w2l_frame)]))
+            rects = detector.get_detections_for_batch(np.array([np.array(image_restored)]))
 
             # Initialize mask
-            mask = np.zeros_like(diff)
+            mask = np.zeros_like(original_gray)
 
             # Process each detected face
             for (i, rect) in enumerate(rects):
@@ -161,7 +178,7 @@ class Wav2LipUHQ:
                     nose = shape[nstart:nend][2]
 
                 # Get mouth coordinates
-                shape = predictor(w2l_gray, dlib.rectangle(*rect))
+                shape = predictor(image_restored_gray, dlib.rectangle(*rect))
                 shape = face_utils.shape_to_np(shape)
 
                 mouth = shape[mstart:mend][:-8]
@@ -177,6 +194,10 @@ class Wav2LipUHQ:
                     if self.erode_face_mask > 0:
                         kernel = np.ones((self.erode_face_mask, self.erode_face_mask), np.uint8)
                         mask = cv2.erode(mask, kernel, iterations=1)
+                    # Calculate diff between frames and apply threshold
+                    diff = np.abs(original_gray - image_restored_gray)
+                    diff[diff > 10] = 255
+                    diff[diff <= 10] = 0
                     masked_diff = cv2.bitwise_and(diff, diff, mask=mask)
                 else:
                     masked_diff = mask
@@ -191,25 +212,17 @@ class Wav2LipUHQ:
                 else:
                     masked_save = masked_diff
 
-                # Prepare for restoration
-                masked_diff = np.uint8(masked_diff / 255)
-                masked_diff = cv2.cvtColor(masked_diff, cv2.COLOR_GRAY2BGR)
-                dst = w2l_frame * masked_diff
                 original = original_frame.copy()
-                original_frame = original_frame * (1 - masked_diff) + dst
-
-                # Restore face
-                image_restored = modules.face_restoration.restore_faces(original_frame)
 
                 # Apply restored face to original image with mask attention
-                extended_mask = np.stack([masked_save]*3, axis=-1)
+                extended_mask = np.stack([masked_save] * 3, axis=-1)
                 normalized_mask = extended_mask / 255.0
-                dst2 = image_restored * normalized_mask
-                original = original * (1 - normalized_mask) + dst2
+                dst = image_restored * normalized_mask
+                original = original * (1 - normalized_mask) + dst
                 original = original.astype(np.uint8)
 
                 # Save final image
-                cv2.imwrite(final_path + "output_" + str(frame_number).rjust(5, '0') + ".png", original)
+                cv2.imwrite(final_path + "output_" + f_number + ".png", original)
 
                 if self.debug:
                     clone = w2l_frame.copy()
@@ -219,31 +232,31 @@ class Wav2LipUHQ:
                     else:
                         for (x, y) in mouth:
                             cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
-
-                    f_number = str(frame_number).rjust(5, '0')
-                    cv2.imwrite(debug_path + "diff_" + f_number+ ".png", diff)
+                    if not self.only_mouth:
+                        cv2.imwrite(debug_path + "diff_" + f_number + ".png", diff)
                     cv2.imwrite(debug_path + "points_" + f_number + ".png", clone)
                     cv2.imwrite(debug_path + 'mask_' + f_number + '.png', masked_save)
-                    cv2.imwrite(debug_path + "dst_" + f_number + ".png", dst)
-                    cv2.imwrite(debug_path + 'image_' + f_number + '.png', original_frame)
+                    cv2.imwrite(debug_path + 'original_' + f_number + '.png', original_frame)
                     cv2.imwrite(debug_path + "face_restore_" + f_number + ".png", image_restored)
-                    cv2.imwrite(debug_path + "dst2_" + f_number + ".png", dst2)
+                    cv2.imwrite(debug_path + "dst_" + f_number + ".png", dst)
 
             frame_number += 1
-
-        if not state.interrupted:
+        opts.code_former_weight = original_codeformer_weight
+        if frame_number > 1:
             vs.release()
             if not self.original_is_image:
                 vi.release()
 
-            print("[INFO] Create Video output!")
+            print("[INFO] Create Videos output!")
             self.create_video_from_images(frame_number - 1)
             print("[INFO] Extract Audio from input!")
             self.extract_audio_from_video()
-            print("[INFO] Add Audio to Video!")
+            print("[INFO] Add Audio to Videos!")
             self.add_audio_to_video()
             print("[INFO] Done! file save in output/video_output.mp4")
-            return self.wav2lip_folder + "/output/output_video.mp4"
+            return [self.wav2lip_folder + "/results/result_voice.mp4",
+                    self.wav2lip_folder + "/output/output_video_enhanced.mp4",
+                    self.wav2lip_folder + "/output/output_video.mp4"]
         else:
             print("[INFO] Interrupted!")
             return None
