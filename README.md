@@ -85,7 +85,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 9. **Face Mask Erode**: This will erode the face mask to remove some area around the face. depends on the face size.
 10. **Mask Blur**: This will blur the mask to make it more smooth, try to keep it under or equal to **Mouth Mask Dilate**.
 11. **Code Former Fidelity**: 
-    1. 0 means Better quality but will change a lot the face of the person and will create flickering between frames, 1 means less quality but will keep the face of the person more stable and will not create less flickering between frames. Under 0.5 is not recommended, experiment with this value to get the best result. 0.75 is a good value to start with.
+    1. A value of 0 offers higher quality but may significantly alter the person's facial appearance and cause noticeable flickering between frames.
     2. A value of 1 provides lower quality but maintains the person's face more consistently and reduces frame flickering.
     3. Using a value below 0.5 is not advised. Adjust this setting to achieve optimal results. Starting with a value of 0.75 is recommended.
 12. **Active debug**: This will create step-by-step images in the debug folder.
