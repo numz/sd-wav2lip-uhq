@@ -27,6 +27,8 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 * [📜 License](#-license)
 
 ## 🚀 Updates
+**2023.08.17**
+- 🐛 Fixed purple lips bug 
 
 **2023.08.16**
 - ⚡ Added Wav2lip and enhanced video output, with the option to download the one that's best for you, likely the "generated video".
@@ -112,7 +114,7 @@ This extension operates in several stages to improve the quality of Wav2Lip-gene
 - Upscaling can be good for improving result, particularly around the mouth area. However, it will extend the processing duration. Use this tutorial from Olivio Sarikas to upscale your video: [https://www.youtube.com/watch?v=3z4MKUqFEUk](https://www.youtube.com/watch?v=3z4MKUqFEUk). Ensure the denoising strength is set between 0.0 and 0.05, select the 'revAnimated' model, and use the batch mode.
 - Ensure there is a face on each frame of the video. If the face is not detected, process will stop.
 
-## ⚠️Noted Constraints
+## ⚠ Noted Constraints
 - The model may struggle with beards.
 - If the initial phase is excessively lengthy, consider using the "resize factor" to decrease the video's dimensions.
 - While there's no strict size limit for videos, larger videos will require more processing time. It's advisable to employ the "resize factor" to minimize the video size and then upscale the video once processing is complete.
@@ -130,6 +132,7 @@ We welcome contributions to this project. When submitting pull requests, please 
 
 ## 🙏 Appreciation 
 - [Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
+- [CodeFormer](https://github.com/sczhou/CodeFormer)
 
 ## 📝 Citation
 If you use this project in your own work, in articles, tutorials, or presentations, we encourage you to cite this project to acknowledge the efforts put into it.

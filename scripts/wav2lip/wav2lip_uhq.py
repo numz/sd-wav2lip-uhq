@@ -158,12 +158,14 @@ class Wav2LipUHQ:
             original_gray = cv2.cvtColor(original_frame, cv2.COLOR_RGB2GRAY)
 
             # Restore face
-            image_restored = modules.face_restoration.restore_faces(w2l_frame)
-            cv2.imwrite(face_enhanced_path + "face_restore_" + f_number + ".png", image_restored)
-            image_restored_gray = cv2.cvtColor(image_restored, cv2.COLOR_RGB2GRAY)
+            w2l_frame_to_restore = cv2.cvtColor(w2l_frame, cv2.COLOR_BGR2RGB)
+            image_restored = modules.face_restoration.restore_faces(w2l_frame_to_restore)
+            image_restored2 = cv2.cvtColor(image_restored, cv2.COLOR_RGB2BGR)
+            cv2.imwrite(face_enhanced_path + "face_restore_" + f_number + ".png", image_restored2)
+            image_restored_gray = cv2.cvtColor(image_restored2, cv2.COLOR_RGB2GRAY)
 
             # Detect faces
-            rects = detector.get_detections_for_batch(np.array([np.array(image_restored)]))
+            rects = detector.get_detections_for_batch(np.array([np.array(image_restored2)]))
 
             # Initialize mask
             mask = np.zeros_like(original_gray)
@@ -217,7 +219,7 @@ class Wav2LipUHQ:
                 # Apply restored face to original image with mask attention
                 extended_mask = np.stack([masked_save] * 3, axis=-1)
                 normalized_mask = extended_mask / 255.0
-                dst = image_restored * normalized_mask
+                dst = image_restored2 * normalized_mask
                 original = original * (1 - normalized_mask) + dst
                 original = original.astype(np.uint8)
 
@@ -237,7 +239,7 @@ class Wav2LipUHQ:
                     cv2.imwrite(debug_path + "points_" + f_number + ".png", clone)
                     cv2.imwrite(debug_path + 'mask_' + f_number + '.png', masked_save)
                     cv2.imwrite(debug_path + 'original_' + f_number + '.png', original_frame)
-                    cv2.imwrite(debug_path + "face_restore_" + f_number + ".png", image_restored)
+                    cv2.imwrite(debug_path + "face_restore_" + f_number + ".png", image_restored2)
                     cv2.imwrite(debug_path + "dst_" + f_number + ".png", dst)
 
             frame_number += 1
