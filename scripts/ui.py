@@ -22,7 +22,7 @@ def on_ui_tabs():
                                      type="filepath")
                 with gr.Row():
                     checkpoint = gr.Radio(["wav2lip", "wav2lip_gan"], value="wav2lip_gan", label="Checkpoint",
-                                          info="Name of saved checkpoint to load weights fvrom")
+                                          info="Name of saved checkpoint to load weights from")
                     no_smooth = gr.Checkbox(label="No Smooth", info="Prevent smoothing face detections")
                     only_mouth = gr.Checkbox(label="Only Mouth", info="Only track the mouth")
                     active_debug = gr.Checkbox(label="Active Debug", info="Active Debug")
