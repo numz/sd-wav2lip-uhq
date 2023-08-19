@@ -1,4 +1,5 @@
 import numpy as np
+import gc
 import cv2, os, scripts.wav2lip.audio as audio
 import subprocess
 from tqdm import tqdm
@@ -274,6 +275,11 @@ class W2l:
                 out.write(f)
 
         out.release()
+        # release memory
+        model.cpu()
+        del model
+        torch.cuda.empty_cache()
+        gc.collect()
 
         command = [self.ffmpeg_binary, "-y", "-i", self.audio, "-i", self.wav2lip_folder + '/temp/result.avi',
                    "-strict", "-2", "-q:v", "1", self.outfile]

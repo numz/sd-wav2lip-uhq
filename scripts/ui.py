@@ -22,7 +22,12 @@ def on_ui_tabs():
                                      type="filepath")
                 with gr.Row():
                     checkpoint = gr.Radio(["wav2lip", "wav2lip_gan"], value="wav2lip_gan", label="Checkpoint",
-                                          info="Name of saved checkpoint to load weights from")
+                                          info="Wav2lip model to use")
+                    face_restore_model = gr.Radio(["CodeFormer", "GFPGAN"], value="CodeFormer",
+                                                  label="Face Restoration Model",
+                                                  info="Model to use")
+
+                with gr.Row():
                     no_smooth = gr.Checkbox(label="No Smooth", info="Prevent smoothing face detections")
                     only_mouth = gr.Checkbox(label="Only Mouth", info="Only track the mouth")
                     active_debug = gr.Checkbox(label="Active Debug", info="Active Debug")
@@ -58,31 +63,54 @@ def on_ui_tabs():
                         result = gr.Video(label="Generated video", format="mp4")
                 generate_btn = gr.Button("Generate")
                 interrupt_btn = gr.Button('Interrupt', elem_id=f"interrupt", visible=True)
+                resume_btn = gr.Button('Resume', elem_id=f"resume", visible=True)
 
         def on_interrupt():
             state.interrupt()
             return "Interrupted"
 
-        def generate(video, audio, checkpoint, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
-                     erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right, active_debug,code_former_weight):
+        def generate(video, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor,
+                     mouth_mask_dilatation, erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right,
+                     active_debug, code_former_weight):
             state.begin()
-            if video is None or audio is None or checkpoint is None:
+
+            if video is None or audio is None:
+                print("[ERROR] Please select a video and an audio file")
                 return
+
             w2l = W2l(video, audio, checkpoint, no_smooth, resize_factor, pad_top, pad_bottom, pad_left,
                       pad_right)
             w2l.execute()
 
-            w2luhq = Wav2LipUHQ(video, audio, mouth_mask_dilatation, erode_face_mask, mask_blur, only_mouth,
+            w2luhq = Wav2LipUHQ(video, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur,
+                                only_mouth,
                                 resize_factor, code_former_weight, active_debug)
 
             return w2luhq.execute()
 
+        def resume(video, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
+                   mask_blur,
+                   active_debug, code_former_weight):
+            state.begin()
+
+            w2luhq = Wav2LipUHQ(video, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur,
+                                only_mouth,
+                                resize_factor, code_former_weight, active_debug)
+
+            return w2luhq.execute(True)
+
         generate_btn.click(
             generate,
-            [video, audio, checkpoint, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
+            [video, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
              erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right, active_debug, code_former_weight],
+            [wav2lip_video, restore_video, result])
+
+        resume_btn.click(
+            resume,
+            [video, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
+             mask_blur, active_debug, code_former_weight],
             [wav2lip_video, restore_video, result])
 
         interrupt_btn.click(on_interrupt)
 
-    return [(wav2lip_uhq_interface, "Wav2lip Uhq", "wav2lip_uhq_interface")]
+    return [(wav2lip_uhq_interface, "Wav2lip Studio", "wav2lip_uhq_interface")]

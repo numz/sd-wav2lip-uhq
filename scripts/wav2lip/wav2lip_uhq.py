@@ -2,6 +2,7 @@ import os
 import numpy as np
 import cv2
 import dlib
+import json
 import torch
 import scripts.wav2lip.face_detection as face_detection
 from imutils import face_utils
@@ -9,20 +10,19 @@ import subprocess
 from modules.shared import state, opts
 from pkg_resources import resource_filename
 import modules.face_restoration
-
+from modules import devices
 
 class Wav2LipUHQ:
-    def __init__(self, face, audio,mouth_mask_dilatation,erode_face_mask, mask_blur, only_mouth, resize_factor,code_former_weight, debug=False):
+    def __init__(self, face, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur, only_mouth,
+                 resize_factor, code_former_weight, debug=False):
         self.wav2lip_folder = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])
         self.original_video = face
-        self.audio = audio
+        self.face_restore_model = face_restore_model
         self.mouth_mask_dilatation = mouth_mask_dilatation
         self.erode_face_mask = erode_face_mask
         self.mask_blur = mask_blur
         self.only_mouth = only_mouth
         self.w2l_video = self.wav2lip_folder + '/results/result_voice.mp4'
-        self.original_is_image = self.original_video.lower().endswith(
-            ('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif'))
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.ffmpeg_binary = self.find_ffmpeg_binary()
         self.resize_factor = resize_factor
@@ -98,10 +98,7 @@ class Wav2LipUHQ:
     def initialize_video_streams(self):
         print("[INFO] Loading File...")
         vs = cv2.VideoCapture(self.w2l_video)
-        if self.original_is_image:
-            vi = cv2.imread(self.original_video)
-        else:
-            vi = cv2.VideoCapture(self.original_video)
+        vi = cv2.VideoCapture(self.original_video)
         return vs, vi
 
     def dilate_mouth(self, mouth, w, h):
@@ -113,7 +110,7 @@ class Wav2LipUHQ:
         dilated_points = contours[0].squeeze()
         return dilated_points
 
-    def execute(self):
+    def execute(self, resume=False):
         output_dir = self.wav2lip_folder + '/output/'
         debug_path = output_dir + "debug/"
         face_enhanced_path = output_dir + "face_enhanced/"
@@ -125,9 +122,28 @@ class Wav2LipUHQ:
         (nstart, nend) = face_utils.FACIAL_LANDMARKS_IDXS["nose"]
 
         max_frame = str(int(vs.get(cv2.CAP_PROP_FRAME_COUNT)))
-        frame_number = 0
         original_codeformer_weight = opts.code_former_weight
+        original_face_restoration_model = opts.face_restoration_model
+
         opts.code_former_weight = self.code_former_weight
+        opts.face_restoration_model = self.face_restore_model
+
+        frame_number = 0
+        if resume:
+            if os.path.exists(self.wav2lip_folder + "/resume.json"):
+                with open(self.wav2lip_folder + "/resume.json", "r") as f:
+                    parameters = json.load(f)
+                # Read frame
+                for f in range(parameters["frame"]):
+                    _, _ = vs.read()
+                    ret, _ = vi.read()
+                    if not ret:
+                        vi.release()
+                        vi = cv2.VideoCapture(self.original_video)
+                        _, _ = vi.read()
+                frame_number = parameters["frame"]
+        print("Face Restoration model: " + str(opts.face_restoration_model))
+
         while True:
             print("[INFO] Processing frame: " + str(frame_number) + " of " + max_frame + " - ", end="\r")
             f_number = str(frame_number).rjust(5, '0')
@@ -139,14 +155,11 @@ class Wav2LipUHQ:
             if not ret:
                 break
 
-            if self.original_is_image:
-                original_frame = vi
-            else:
+            ret, original_frame = vi.read()
+            if not ret:
+                vi.release()
+                vi = cv2.VideoCapture(self.original_video)
                 ret, original_frame = vi.read()
-                if not ret:
-                    vi.release()
-                    vi = cv2.VideoCapture(self.original_video)
-                    ret, original_frame = vi.read()
 
             if w2l_frame.shape != original_frame.shape:
                 if self.resize_factor > 1:
@@ -160,6 +173,8 @@ class Wav2LipUHQ:
             # Restore face
             w2l_frame_to_restore = cv2.cvtColor(w2l_frame, cv2.COLOR_BGR2RGB)
             image_restored = modules.face_restoration.restore_faces(w2l_frame_to_restore)
+            devices.torch_gc()
+
             image_restored2 = cv2.cvtColor(image_restored, cv2.COLOR_RGB2BGR)
             cv2.imwrite(face_enhanced_path + "face_restore_" + f_number + ".png", image_restored2)
             image_restored_gray = cv2.cvtColor(image_restored2, cv2.COLOR_RGB2GRAY)
@@ -244,10 +259,11 @@ class Wav2LipUHQ:
 
             frame_number += 1
         opts.code_former_weight = original_codeformer_weight
+        opts.face_restoration_model = original_face_restoration_model
+        devices.torch_gc()
         if frame_number > 1:
             vs.release()
-            if not self.original_is_image:
-                vi.release()
+            vi.release()
 
             print("[INFO] Create Videos output!")
             self.create_video_from_images(frame_number - 1)
@@ -256,6 +272,15 @@ class Wav2LipUHQ:
             print("[INFO] Add Audio to Videos!")
             self.add_audio_to_video()
             print("[INFO] Done! file save in output/video_output.mp4")
+
+            if str(frame_number) != max_frame:
+                parameters = {"frame": frame_number}
+                with open(self.wav2lip_folder + "/resume.json", 'w') as f:
+                    json.dump(parameters, f)
+            else:
+                if os.path.exists(self.wav2lip_folder + "/resume.json"):
+                    os.remove(self.wav2lip_folder + "/resume.json")
+
             return [self.wav2lip_folder + "/results/result_voice.mp4",
                     self.wav2lip_folder + "/output/output_video_enhanced.mp4",
                     self.wav2lip_folder + "/output/output_video.mp4"]

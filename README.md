@@ -28,6 +28,11 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 * [📜 License](#-license)
 
 ## 🚀 Updates
+**2023.08.20**
+- 🚢 Introduced the GFPGAN model as an option.
+- ▶ Added the feature to resume generation.
+- 📏 Optimized to release memory post-generation.
+
 **2023.08.17**
 - 🐛 Fixed purple lips bug 
 
@@ -99,11 +104,10 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 This extension operates in several stages to improve the quality of Wav2Lip-generated videos:
 
 1. **Generate a Wav2lip video**: The script first generates a low-quality Wav2Lip video using the input video and audio.
-2. **Mask Creation**: The script creates a mask around the mouth and tries to keep other facial motions like those of the cheeks and chin.
-3. **Video Quality Enhancement**: It takes the low-quality Wav2Lip video and overlays the low-quality mouth onto the high-quality original video guided by the mouth mask. 
-4. **Face Enhancer**: The script then sends the original image with the low-quality mouth on face_enhancer tool of stable diffusion to generate a high-quality mouth image.
-5. **Video Generation**: The script then takes the high-quality mouth image and overlays it onto the original image guided by the mouth mask.
-6. **Video Post Processing**: The script then uses the ffmpeg tool to generate the final video.
+2. **Video Quality Enhancement**: Create a high-quality video using the low-quality video by using the enhancer define by user. 
+3. **Mask Creation**: The script creates a mask around the mouth and tries to keep other facial motions like those of the cheeks and chin.
+4. **Video Generation**: The script then takes the high-quality mouth image and overlays it onto the original image guided by the mouth mask.
+5. **Video Post Processing**: The script then uses the ffmpeg tool to generate the final video.
 
 ## 💪 Quality tips
 - Use a high quality video as input
@@ -112,7 +116,7 @@ This extension operates in several stages to improve the quality of Wav2Lip-gene
 - Try to minimize the grain on the face on the input as much as possible. For example, you can use the "Restore faces" feature in img2img before using an image as input for Wav2Lip.
 - Dilate the mouth mask. This will help the model retain some facial motion and hide the original mouth.
 - Mask Blur maximum twice the value of Mouth Mask Dilate. If you want to increase the blur, increase the value of Mouth Mask Dilate otherwise the mouth will be blurred and the underlying mouth could be visible.
-- Upscaling can be good for improving result, particularly around the mouth area. However, it will extend the processing duration. Use this tutorial from Olivio Sarikas to upscale your video: [https://www.youtube.com/watch?v=3z4MKUqFEUk](https://www.youtube.com/watch?v=3z4MKUqFEUk). Ensure the denoising strength is set between 0.0 and 0.05, select the 'revAnimated' model, and use the batch mode.
+- Upscaling can be good for improving result, particularly around the mouth area. However, it will extend the processing duration. Use this tutorial from Olivio Sarikas to upscale your video: [https://www.youtube.com/watch?v=3z4MKUqFEUk](https://www.youtube.com/watch?v=3z4MKUqFEUk). Ensure the denoising strength is set between 0.0 and 0.05, select the 'revAnimated' model, and use the batch mode. i'll create a tutorial for this soon.
 - Ensure there is a face on each frame of the video. If the face is not detected, process will stop.
 
 ## ⚠ Noted Constraints
@@ -122,8 +126,6 @@ This extension operates in several stages to improve the quality of Wav2Lip-gene
 
 ## 📝 To do
 - [ ] Add Suno/Bark to generate text to speech audio as wav file input (see [bark](https://github.com/suno-ai/bark/)) and Add a way to generate a high quality speech audio file from a text input 
-- [ ] Possibility to resume a video generation
-- [ ] Will be renamed to "Wav2Lip Studio" in Automatic1111
 - [ ] Add more examples and tutorials
 - [ ] Convert avi to mp4. Avi is not show in video input but process work fine
 
