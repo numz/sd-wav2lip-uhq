@@ -1,5 +1,6 @@
 # 🔉👄 Wav2Lip UHQ extension for Stable Diffusion WebUI Automatic1111
 
+## <div align="center"><b><a href="README.md">English</a> | <a href="README_CN.md">简体中文</a></b></div>
 
 ![Illustration](https://user-images.githubusercontent.com/800903/258130805-26d9732f-4d33-4c7e-974e-7af2f1261768.gif)
 
@@ -79,7 +80,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 1. Choose a video (avi or mp4 format) with a face in it. If there is no face in only one frame of the video, process will fail. Note avi file will not appear in Video input but process will works.
 2. Choose an audio file with speech.
 3. choose a checkpoint (see table above).
-4. **Padding**: Wav2Lip uses this to add a black border around the mouth, which is useful to prevent the mouth from being cropped by the face detection. You can change the padding value to suit your needs, but the default value gives good results.
+4. **Padding**: Wav2Lip uses this to move the mouth. This is useful if the mouth is not at the good place. Usually, default value is good, but certain video may need to be adjusted.
 5. **No Smooth**: When checked, this option retains the original mouth shape without smoothing.
 6. **Resize Factor**: This is a resize factor for the video. The default value is 1.0, but you can change it to suit your needs. This is useful if the video size is too large.
 7. **Only Mouth**: This option tracks only the mouth, removing other facial motions like those of the cheeks and chin.
