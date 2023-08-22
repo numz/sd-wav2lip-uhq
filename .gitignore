@@ -16,3 +16,4 @@ scripts/wav2lip/output/*.aac
 scripts/wav2lip/results/result_voice.mp4
 scripts/wav2lip/temp/*.avi
 scripts/wav2lip/temp/*.wav
+docs/*

@@ -173,7 +173,6 @@ class Wav2LipUHQ:
             # Restore face
             w2l_frame_to_restore = cv2.cvtColor(w2l_frame, cv2.COLOR_BGR2RGB)
             image_restored = modules.face_restoration.restore_faces(w2l_frame_to_restore)
-            devices.torch_gc()
 
             image_restored2 = cv2.cvtColor(image_restored, cv2.COLOR_RGB2BGR)
             cv2.imwrite(face_enhanced_path + "face_restore_" + f_number + ".png", image_restored2)

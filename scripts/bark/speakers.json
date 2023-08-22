@@ -1,0 +1,1172 @@
+[
+    {
+        "name": "Speaker 0 (EN)",
+        "id": "v2/en_speaker_0",
+        "language": "English",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (EN)",
+        "id": "v2/en_speaker_1",
+        "language": "English",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (EN)",
+        "id": "v2/en_speaker_2",
+        "language": "English",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (EN)",
+        "id": "v2/en_speaker_3",
+        "language": "English",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (EN)",
+        "id": "v2/en_speaker_4",
+        "language": "English",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (EN)",
+        "id": "v2/en_speaker_5",
+        "language": "English",
+        "gender": "Male",
+        "quality": "Grainy",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (EN)",
+        "id": "v2/en_speaker_6",
+        "language": "English",
+        "gender": "Male",
+        "quality": "Suno Favorite",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (EN)",
+        "id": "v2/en_speaker_7",
+        "language": "English",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (EN)",
+        "id": "v2/en_speaker_8",
+        "language": "English",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (EN)",
+        "id": "v2/en_speaker_9",
+        "language": "English",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/en_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/en_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (ZH)",
+        "id": "v2/zh_speaker_0",
+        "language": "Chinese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (ZH)",
+        "id": "v2/zh_speaker_1",
+        "language": "Chinese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (ZH)",
+        "id": "v2/zh_speaker_2",
+        "language": "Chinese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (ZH)",
+        "id": "v2/zh_speaker_3",
+        "language": "Chinese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (ZH)",
+        "id": "v2/zh_speaker_4",
+        "language": "Chinese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (ZH)",
+        "id": "v2/zh_speaker_5",
+        "language": "Chinese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (ZH)",
+        "id": "v2/zh_speaker_6",
+        "language": "Chinese",
+        "gender": "Female",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (ZH)",
+        "id": "v2/zh_speaker_7",
+        "language": "Chinese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (ZH)",
+        "id": "v2/zh_speaker_8",
+        "language": "Chinese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (ZH)",
+        "id": "v2/zh_speaker_9",
+        "language": "Chinese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/zh_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/zh_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (FR)",
+        "id": "v2/fr_speaker_0",
+        "language": "French",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (FR)",
+        "id": "v2/fr_speaker_1",
+        "language": "French",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (FR)",
+        "id": "v2/fr_speaker_2",
+        "language": "French",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (FR)",
+        "id": "v2/fr_speaker_3",
+        "language": "French",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (FR)",
+        "id": "v2/fr_speaker_4",
+        "language": "French",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (FR)",
+        "id": "v2/fr_speaker_5",
+        "language": "French",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (FR)",
+        "id": "v2/fr_speaker_6",
+        "language": "French",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (FR)",
+        "id": "v2/fr_speaker_7",
+        "language": "French",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (FR)",
+        "id": "v2/fr_speaker_8",
+        "language": "French",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (FR)",
+        "id": "v2/fr_speaker_9",
+        "language": "French",
+        "gender": "Male",
+        "quality": "Auditorium",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/fr_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/fr_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (DE)",
+        "id": "v2/de_speaker_0",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (DE)",
+        "id": "v2/de_speaker_1",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (DE)",
+        "id": "v2/de_speaker_2",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (DE)",
+        "id": "v2/de_speaker_3",
+        "language": "German",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (DE)",
+        "id": "v2/de_speaker_4",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (DE)",
+        "id": "v2/de_speaker_5",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (DE)",
+        "id": "v2/de_speaker_6",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (DE)",
+        "id": "v2/de_speaker_7",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (DE)",
+        "id": "v2/de_speaker_8",
+        "language": "German",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (DE)",
+        "id": "v2/de_speaker_9",
+        "language": "German",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/de_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/de_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (HI)",
+        "id": "v2/hi_speaker_0",
+        "language": "Hindi",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (HI)",
+        "id": "v2/hi_speaker_1",
+        "language": "Hindi",
+        "gender": "Female",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (HI)",
+        "id": "v2/hi_speaker_2",
+        "language": "Hindi",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (HI)",
+        "id": "v2/hi_speaker_3",
+        "language": "Hindi",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (HI)",
+        "id": "v2/hi_speaker_4",
+        "language": "Hindi",
+        "gender": "Female",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (HI)",
+        "id": "v2/hi_speaker_5",
+        "language": "Hindi",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (HI)",
+        "id": "v2/hi_speaker_6",
+        "language": "Hindi",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (HI)",
+        "id": "v2/hi_speaker_7",
+        "language": "Hindi",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (HI)",
+        "id": "v2/hi_speaker_8",
+        "language": "Hindi",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (HI)",
+        "id": "v2/hi_speaker_9",
+        "language": "Hindi",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/hi_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/hi_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (IT)",
+        "id": "v2/it_speaker_0",
+        "language": "Italian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (IT)",
+        "id": "v2/it_speaker_1",
+        "language": "Italian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (IT)",
+        "id": "v2/it_speaker_2",
+        "language": "Italian",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (IT)",
+        "id": "v2/it_speaker_3",
+        "language": "Italian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (IT)",
+        "id": "v2/it_speaker_4",
+        "language": "Italian",
+        "gender": "Male",
+        "quality": "Suno Favorite",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (IT)",
+        "id": "v2/it_speaker_5",
+        "language": "Italian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (IT)",
+        "id": "v2/it_speaker_6",
+        "language": "Italian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (IT)",
+        "id": "v2/it_speaker_7",
+        "language": "Italian",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (IT)",
+        "id": "v2/it_speaker_8",
+        "language": "Italian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (IT)",
+        "id": "v2/it_speaker_9",
+        "language": "Italian",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/it_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/it_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (JA)",
+        "id": "v2/ja_speaker_0",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (JA)",
+        "id": "v2/ja_speaker_1",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (JA)",
+        "id": "v2/ja_speaker_2",
+        "language": "Japanese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (JA)",
+        "id": "v2/ja_speaker_3",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (JA)",
+        "id": "v2/ja_speaker_4",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (JA)",
+        "id": "v2/ja_speaker_5",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (JA)",
+        "id": "v2/ja_speaker_6",
+        "language": "Japanese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (JA)",
+        "id": "v2/ja_speaker_7",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (JA)",
+        "id": "v2/ja_speaker_8",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (JA)",
+        "id": "v2/ja_speaker_9",
+        "language": "Japanese",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ja_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ja_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (KO)",
+        "id": "v2/ko_speaker_0",
+        "language": "Korean",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (KO)",
+        "id": "v2/ko_speaker_1",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (KO)",
+        "id": "v2/ko_speaker_2",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (KO)",
+        "id": "v2/ko_speaker_3",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (KO)",
+        "id": "v2/ko_speaker_4",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (KO)",
+        "id": "v2/ko_speaker_5",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (KO)",
+        "id": "v2/ko_speaker_6",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (KO)",
+        "id": "v2/ko_speaker_7",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (KO)",
+        "id": "v2/ko_speaker_8",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (KO)",
+        "id": "v2/ko_speaker_9",
+        "language": "Korean",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ko_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ko_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (PL)",
+        "id": "v2/pl_speaker_0",
+        "language": "Polish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (PL)",
+        "id": "v2/pl_speaker_1",
+        "language": "Polish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (PL)",
+        "id": "v2/pl_speaker_2",
+        "language": "Polish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (PL)",
+        "id": "v2/pl_speaker_3",
+        "language": "Polish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (PL)",
+        "id": "v2/pl_speaker_4",
+        "language": "Polish",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (PL)",
+        "id": "v2/pl_speaker_5",
+        "language": "Polish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (PL)",
+        "id": "v2/pl_speaker_6",
+        "language": "Polish",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (PL)",
+        "id": "v2/pl_speaker_7",
+        "language": "Polish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (PL)",
+        "id": "v2/pl_speaker_8",
+        "language": "Polish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (PL)",
+        "id": "v2/pl_speaker_9",
+        "language": "Polish",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pl_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pl_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (PT)",
+        "id": "v2/pt_speaker_0",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (PT)",
+        "id": "v2/pt_speaker_1",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (PT)",
+        "id": "v2/pt_speaker_2",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (PT)",
+        "id": "v2/pt_speaker_3",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (PT)",
+        "id": "v2/pt_speaker_4",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (PT)",
+        "id": "v2/pt_speaker_5",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (PT)",
+        "id": "v2/pt_speaker_6",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (PT)",
+        "id": "v2/pt_speaker_7",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (PT)",
+        "id": "v2/pt_speaker_8",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (PT)",
+        "id": "v2/pt_speaker_9",
+        "language": "Portuguese",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/pt_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/pt_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (RU)",
+        "id": "v2/ru_speaker_0",
+        "language": "Russian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (RU)",
+        "id": "v2/ru_speaker_1",
+        "language": "Russian",
+        "gender": "Male",
+        "quality": "Echoes",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (RU)",
+        "id": "v2/ru_speaker_2",
+        "language": "Russian",
+        "gender": "Male",
+        "quality": "Echoes",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (RU)",
+        "id": "v2/ru_speaker_3",
+        "language": "Russian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (RU)",
+        "id": "v2/ru_speaker_4",
+        "language": "Russian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (RU)",
+        "id": "v2/ru_speaker_5",
+        "language": "Russian",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (RU)",
+        "id": "v2/ru_speaker_6",
+        "language": "Russian",
+        "gender": "Female",
+        "quality": "Grainy",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (RU)",
+        "id": "v2/ru_speaker_7",
+        "language": "Russian",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (RU)",
+        "id": "v2/ru_speaker_8",
+        "language": "Russian",
+        "gender": "Male",
+        "quality": "Grainy",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (RU)",
+        "id": "v2/ru_speaker_9",
+        "language": "Russian",
+        "gender": "Female",
+        "quality": "Grainy",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/ru_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/ru_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (ES)",
+        "id": "v2/es_speaker_0",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (ES)",
+        "id": "v2/es_speaker_1",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (ES)",
+        "id": "v2/es_speaker_2",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (ES)",
+        "id": "v2/es_speaker_3",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (ES)",
+        "id": "v2/es_speaker_4",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (ES)",
+        "id": "v2/es_speaker_5",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": "Background Noise",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (ES)",
+        "id": "v2/es_speaker_6",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (ES)",
+        "id": "v2/es_speaker_7",
+        "language": "Spanish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (ES)",
+        "id": "v2/es_speaker_8",
+        "language": "Spanish",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (ES)",
+        "id": "v2/es_speaker_9",
+        "language": "Spanish",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/es_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/es_speaker_9.mp3"
+    },
+    {
+        "name": "Speaker 0 (TR)",
+        "id": "v2/tr_speaker_0",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_0.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_0.mp3"
+    },
+    {
+        "name": "Speaker 1 (TR)",
+        "id": "v2/tr_speaker_1",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_1.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_1.mp3"
+    },
+    {
+        "name": "Speaker 2 (TR)",
+        "id": "v2/tr_speaker_2",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_2.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_2.mp3"
+    },
+    {
+        "name": "Speaker 3 (TR)",
+        "id": "v2/tr_speaker_3",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_3.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_3.mp3"
+    },
+    {
+        "name": "Speaker 4 (TR)",
+        "id": "v2/tr_speaker_4",
+        "language": "Turkish",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_4.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_4.mp3"
+    },
+    {
+        "name": "Speaker 5 (TR)",
+        "id": "v2/tr_speaker_5",
+        "language": "Turkish",
+        "gender": "Female",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_5.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_5.mp3"
+    },
+    {
+        "name": "Speaker 6 (TR)",
+        "id": "v2/tr_speaker_6",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_6.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_6.mp3"
+    },
+    {
+        "name": "Speaker 7 (TR)",
+        "id": "v2/tr_speaker_7",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": "Grainy",
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_7.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_7.mp3"
+    },
+    {
+        "name": "Speaker 8 (TR)",
+        "id": "v2/tr_speaker_8",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_8.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_8.mp3"
+    },
+    {
+        "name": "Speaker 9 (TR)",
+        "id": "v2/tr_speaker_9",
+        "language": "Turkish",
+        "gender": "Male",
+        "quality": null,
+        "prompt_audio": "https://dl.suno-models.io/bark/prompts/prompt_audio/tr_speaker_9.mp3",
+        "continuation_audio": "https://dl.suno-models.io/bark/prompts/continuation_audio/tr_speaker_9.mp3"
+    }
+]
