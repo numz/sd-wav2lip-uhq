@@ -1,23 +1,25 @@
-# 🔉👄 Stable Diffusion WebUI Automatic1111 Wav2Lip UHQ 扩展插件 
+# 🔉👄 Stable Diffusion WebUI Automatic1111 Wav2Lip Studio 扩展插件 
 
 ## <div align="center"><b><a href="README.md">English</a> | <a href="README_CN.md">简体中文</a></b></div>
 
-![Illustration](https://user-images.githubusercontent.com/800903/258130805-26d9732f-4d33-4c7e-974e-7af2f1261768.gif)
+<img src="https://user-images.githubusercontent.com/800903/258130805-26d9732f-4d33-4c7e-974e-7af2f1261768.gif" width="100%">
 
-https://user-images.githubusercontent.com/800903/258139382-6594f243-b43d-46b9-89f1-7a9f8f47b764.mp4
+https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-afcc-05980d581fe0.mp4
 
 ## 💡 简介
 本代码仓库是适用于Automatic1111的 Wav2Lip UHQ扩展插件。
 
 本插件为一体化集成解决方案：只需要一段视频和一段口播音频文件（wav或者mp3），就可以生成一个嘴唇同步的视频。通过Stable Diffusion特别的后处理技术，本插件所生成视频的嘴唇同步效果相比于[Wav2Lip tool](https://github.com/Rudrabha/Wav2Lip)所生成的视频，有更好的质量。
 
-![Illustration](https://user-images.githubusercontent.com/800903/261026004-871ed08b-c5b2-4de2-9cb2-41928d584396.png)
+![Illustration](https://user-images.githubusercontent.com/800903/262430428-e091e6ad-b3e0-4e6e-a1e7-e9914add41e8.png)
 
 ## 📖 快速索引
 * [🚀 更新](#-更新)
 * [🔗 必要环境](#-必要环境)
 * [💻 安装说明](#-安装说明)
 * [🐍 使用方法](#-使用方法)
+* [👄 关于bark的保真度说明](#-关于bark的保真度说明)
+* [📺 样例](#-样例)
 * [📖 后台原理](#-后台原理)
 * [💪 提高质量的小提示](#-提高质量的小提示)
 * [⚠️需要注意的约束](#-需要注意的约束)
@@ -28,6 +30,9 @@ https://user-images.githubusercontent.com/800903/258139382-6594f243-b43d-46b9-89
 * [📜 版权声明](#-版权声明)
 
 ## 🚀 更新
+**2023.08.22**
+- 👄 增加了 [bark](https://github.com/suno-ai/bark/) (参加下方使用方法章节)， **本功能为实验性功能**。
+
 **2023.08.20**
 - 🚢 增加了新的面部修复模型选择：GFPGAN。
 - ▶ 增加了暂停/恢复功能。
@@ -84,6 +89,28 @@ https://user-images.githubusercontent.com/800903/258139382-6594f243-b43d-46b9-89
 ## 🐍 使用方法
 1. 上传一个包含人脸的视频文件（avi格式或者mp4格式均可）。如果视频里没有人脸，哪怕只有一帧不包含人脸，会导致处理失败。请注意，如果你上传的是avi文件，在界面上你看不见它，但不用担心，插件会正常处理视频。
 2. 上传一个口播音频文件。
+2. 现在音频的输入有两种方式:
+   1. 跟原来一样，在音频输入区域上传口播音频文件。 
+   2. 用 [bark](https://github.com/suno-ai/bark/) 插件将文字转成口播语音.
+      1. 选择语言 : 土耳其语, 英语, 汉语, 印地语, 意大利语, 日语, 韩语, 葡萄牙语, 俄语, 西班牙语, 波兰语, 德语, 法语
+      2. 选择性别
+      3. 选择朗读者, 你可以在 "Audio Example（声音样例）" 里试听
+      4. 如果你的显卡内存低于16GB，勾选低显存为 True (默认选中)  
+      5. 将你需要朗读的文本填入 "Prompt" 区域
+      6. Temperature: 0.0 is supposed to be closer to the voice, and 1.0 is more creative, but in reality, 0.0 yields strange results and 1.0 something very far from the voice. 0.7 is the default value set by 'bark', try different values to see what works best for you.
+      7. Silence（停顿） : 在遇到标点符号(。！!.？?,)时的停顿时间. 默认值是0.25秒.
+      8. 关于更多Bard的有关细节，可查看 Bark [文档](https://github.com/suno-ai/bark/) .
+      9. 下列为已知一些支持的非说话的声音(但有时候没反应).
+         - [laughter] 大笑
+         - [laughs] 微笑
+         - [sighs] 叹气
+         - [music] 音乐
+         - [gasps] 喘气
+         - [clears throat] 清嗓
+         - "-" or ... 犹豫停顿
+         - ♪ 歌词
+         - 大写时用于强调
+         - 可以在提示词里单独写[MAN] 或者 [WOMAN]可无视朗读者的选择，将文本用指性别的朗读者
 3. 选择模型 (详见上方表格).
 4. **Padding（填充位移）**: Wav2Lip用它来移动嘴巴位置。如果嘴巴位置不理想，可以用它来微调，通常情况下，不必刻意调整。
 5. **No Smooth（不要平滑）**: 当勾选该选项，将会保持原始嘴部形状不做平滑处理。
@@ -98,6 +125,28 @@ https://user-images.githubusercontent.com/800903/258139382-6594f243-b43d-46b9-89
     3. 不建议该参数低于0.5。为了达到良好的效果，建议在0.75左右进行调整。
 12. **Active debug（启用debug模式）**: 开启该选项，将会在debug目录里逐步执行来生成图片。
 13. 点击“Generate”（生成）按钮。
+
+## 演示教程
+
+| 链接 | 语言 |
+|:----:|:----:|
+|[哔哩哔哩](https://www.bilibili.com/video/BV1J94y1r7Xc/)|中文|
+|[抖音](https://v.douyin.com/iJtQVU51/)|中文|
+|[Youtube](https://youtu.be/9M-IzuxlFRU)|中文|
+
+
+
+## 👄 关于bark的保真度说明
+Bark十分有趣，但它有时候输出的声音十分奇怪（甚至有点搞笑）。每次生成的结果都有些许不同，你可能需要多生成几次以达到你想要的结果。
+除了英语，其他语言的采样似乎并非来自本土母语，听起来有点像外国人在说话。有时候选男，但听起来有点像女，反之亦然。甚至有时候当你选了某一个声音，但听起来像另外一个声音或者另一种语音。
+
+## 📺 样例
+
+https://user-images.githubusercontent.com/800903/262439441-bb9d888a-d33e-4246-9f0a-1ddeac062d35.mp4
+
+https://user-images.githubusercontent.com/800903/262442794-61b1e32f-3f87-4b36-98d6-f711822bdb1e.mp4
+
+https://user-images.githubusercontent.com/800903/262449305-901086a3-22cb-42d2-b5be-a5f38db4549a.mp4
 
 ## 📖 后台原理
 
@@ -125,12 +174,13 @@ https://user-images.githubusercontent.com/800903/258139382-6594f243-b43d-46b9-89
 - 如果初始化阶段过长，请考虑使用调整“Resize Factor”来减小视频分辨率的大小。
 - 虽然对原始视频没有严格的大小限制，但较大的视频需要更多的处理时间。建议使用“调整大小因子”来最小化视频大小，然后在处理完成后升级视频。
 
+## 📖 故障排除
+- Mac用户: dlib会报无法安装,在requirements.txt文件里，找到”dlib-bin“，并将其替换成"dlib"
+
 ## 📝 即将上线
-- [ ] 增加文字转语音功能，可直接可以通过该功能生成语音作为语音输入。Suno/Bark文字转语音功能引擎 (参见 [bark](https://github.com/suno-ai/bark/))  
-- [ ] 考虑实现视频生成时的暂停/恢复功能
-- [ ] 本插件在Automatic1111里，将更名为"Wav2Lip Studio"
-- [ ] 增加更多的样例和说明演示
+- [ ] 教程指引
 - [ ] 将avi转mp4（目前avi文件在输入框不显示，但依然能正常工作）
+- [ ] 可用视频文件作为音频的输入
 
 ## 😎 贡献
 
@@ -139,6 +189,7 @@ https://user-images.githubusercontent.com/800903/258139382-6594f243-b43d-46b9-89
 ## 🙏 鸣谢 
 - [Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
 - [CodeFormer](https://github.com/sczhou/CodeFormer)
+- [bark](https://github.com/suno-ai/bark/)
 
 ## 📝 引用
 如果您在工作、发表文章、教程或演示中使用到了项目，我们非常鼓励您引用此项目。
