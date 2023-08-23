@@ -39,7 +39,7 @@ class TTS:
                 force_reload=False)
         pieces = []
         # split text_prompt into sentences by punctuation
-        sentences = re.split('。|！|\!|\.|？|\?|,', self.text_prompt)
+        sentences = re.split('\[split\]', self.text_prompt)
         silence = np.zeros(int(self.silence * SAMPLE_RATE)).astype(np.float32)
         for sentence in sentences:
             if sentence.strip() != "":

@@ -59,6 +59,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 ## 🔗 Requirements
 
 - latest version of Stable Diffusion WebUI Automatic1111 by following the instructions on the [Stable Diffusion Webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) repository.
+- FFmpeg : download it from the [official FFmpeg site](https://ffmpeg.org/download.html). Follow the instructions appropriate for your operating system, note ffmpeg have to be accessible from the command line.
 
 ## 💻 Installation
 
@@ -95,6 +96,9 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
       3. Choose your speaker, you can ear a sample in the "Audio Example"
       4. Choose Low VRAM True (default) if you have a Video Card with less than 16GB VRAM 
       5. Write your text in the text area "Prompt"
+         - **Note** that bark can only generate 14 seconds of audio, so if you want to generate a longer audio, you have to use  "[split]" in your text.  
+         - For example, if you want to generate a 30 seconds audio, you have to write your text like this :
+           - "This is the first part of my text **[split]** This is the second part of my text"
       6. Temperature: 0.0 is supposed to be closer to the voice, and 1.0 is more creative, but in reality, 0.0 yields strange results and 1.0 something very far from the voice. 0.7 is the default value set by 'bark', try different values to see what works best for you.
       7. Silence : Time in seconds between each punctuation(。！!.？?,). Default is 0.25 seconds.
       8. See Bark [documentation](https://github.com/suno-ai/bark/) for more details.
