@@ -31,7 +31,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 
 ## 🚀 Updates
 **2023.08.22**
-- 👄 Introduced [bark](https://github.com/suno-ai/bark/) (See Usage section)
+- 👄 Introduced [bark](https://github.com/suno-ai/bark/) (See Usage section), **this feature is under experimental**.
 
 **2023.08.20**
 - 🚢 Introduced the GFPGAN model as an option.
@@ -124,7 +124,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 12. **Active debug**: This will create step-by-step images in the debug folder.
 13. Click on the "Generate" button.
 
-##👄 Note on the bark Fidelity
+## 👄 Note on the bark Fidelity
 
 Bark is interesting but sometimes yields strange results (or even hilarious ones). Each generation will give you something different and It may take several generations before you achieve something conclusive. 
 Apart from English, it seems that the other languages speak as if they were being used by a foreigner. Sometimes even if you choose "Male" it will speak like a woman, and vice versa. Sometimes, even when choosing a specific speaker, it will sound like another speaker or even another language.
