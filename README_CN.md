@@ -60,6 +60,7 @@ https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-af
 ## 🔗 必要环境
 
 - 最新版本的Stable Diffusion WebUI Automatic1111 [Stable Diffusion Webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) 。
+- FFmpeg : 预先安装好FFmpeg，下载地址：[FFmpeg官网](https://ffmpeg.org/download.html)。根据你的操作系统，按照官网说明安装好，注意，FFmpeg要加入环境变量设置，便于在任意目录调用。
 
 ## 💻 安装说明
 
@@ -97,7 +98,10 @@ https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-af
       3. 选择朗读者, 你可以在 "Audio Example（声音样例）" 里试听
       4. 如果你的显卡内存低于16GB，勾选低显存为 True (默认选中)  
       5. 将你需要朗读的文本填入 "Prompt" 区域
-      6. Temperature: 0.0 is supposed to be closer to the voice, and 1.0 is more creative, but in reality, 0.0 yields strange results and 1.0 something very far from the voice. 0.7 is the default value set by 'bark', try different values to see what works best for you.
+         - **注意** bark生成的一句话只能在14秒以内，如果你的一句话比较长，需要用"[split]"进行分割。  
+         - 例如,假如你一句话大约有30秒，你可以将你的文本写成这样：
+           - "这是前半段文字 **[split]** 这是后半段文字"
+      6. Temperature: 靠近0.0接近原声, 靠近1.0让AI发挥创意, 但现实情况是but in reality, 0.0会感觉有点奇怪，1.0更原声相差甚远。bark设置了0.7为默认值，你可以自行微调以达到效果更佳。
       7. Silence（停顿） : 在遇到标点符号(。！!.？?,)时的停顿时间. 默认值是0.25秒.
       8. 关于更多Bard的有关细节，可查看 Bark [文档](https://github.com/suno-ai/bark/) .
       9. 下列为已知一些支持的非说话的声音(但有时候没反应).
