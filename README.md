@@ -28,6 +28,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 * [🙏 Appreciation](#-appreciation)
 * [📝 Citation](#-citation)
 * [📜 License](#-license)
+* [☕ Support Wav2lip Studio](#-support-wav2lip-studio)
 
 ## 🚀 Updates
 **2023.08.22**
@@ -182,6 +183,14 @@ We welcome contributions to this project. When submitting pull requests, please 
 - [Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
 - [CodeFormer](https://github.com/sczhou/CodeFormer)
 - [bark](https://github.com/suno-ai/bark/)
+
+## ☕ Support Wav2lip Studio
+
+this project is open-source effort that is free to use and modify. I rely on the support of users to keep this project going and help improve it. If you'd like to support me, you can make a donation on my Patreon page. Any contribution, large or small, is greatly appreciated!
+
+Your support helps me cover the costs of development and maintenance, and allows me to allocate more time and resources to enhancing this project. Thank you for your support!
+
+[patreon page](https://www.patreon.com/Wav2LipStudio)
 
 ## 📝 Citation
 If you use this project in your own work, in articles, tutorials, or presentations, we encourage you to cite this project to acknowledge the efforts put into it.
