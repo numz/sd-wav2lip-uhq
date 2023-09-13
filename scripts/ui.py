@@ -1,6 +1,10 @@
 import json
+import os
+import glob
+import shutil
 from scripts.wav2lip_uhq_extend_paths import wav2lip_uhq_sys_extend
 import gradio as gr
+from pathlib import Path
 from scripts.wav2lip.w2l import W2l
 from scripts.wav2lip.wav2lip_uhq import Wav2LipUHQ
 from modules.shared import state
@@ -124,6 +128,11 @@ def on_ui_tabs():
                 generate_btn = gr.Button("Generate")
                 interrupt_btn = gr.Button('Interrupt', elem_id=f"interrupt", visible=True)
                 resume_btn = gr.Button('Resume', elem_id=f"resume", visible=True)
+        with gr.Row():
+            with gr.Column():
+                with gr.Row():
+                    batch_audio_path = gr.Textbox(label="Local audio files path", placeholder="Local audio files path", lines=2, type="text",info="Place local path to batch process audio files")
+                    batch_generate_btn = gr.Button("Batch Generate")
 
         def on_interrupt():
             state.interrupt()
@@ -158,6 +167,40 @@ def on_ui_tabs():
                                 resize_factor, code_former_weight, active_debug)
 
             return w2luhq.execute()
+        
+        def batch_generate(video, audio_path, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor,
+                     mouth_mask_dilatation, erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right,
+                     active_debug, code_former_weight):
+            state.begin()
+            
+            if video is None or audio_path is None:
+                print("[ERROR] Please select a video and an audio file")
+                return
+            
+            out_path = os.path.join(audio_path, "out")
+            if not os.path.exists(out_path):
+                os.makedirs(out_path)
+            
+            counter = 0
+            for file_type in ["*.wav", "*.mp3"]:
+                for audio in glob.glob(os.path.join(audio_path, file_type)):
+                    counter += 1
+                    print(f"processing {audio} [{counter}]")
+                    
+                    w2l = W2l(video, audio, checkpoint, no_smooth, resize_factor, pad_top, pad_bottom, pad_left, pad_right)
+                    w2l.execute()
+
+                    w2luhq = Wav2LipUHQ(video, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur, only_mouth, resize_factor, code_former_weight, active_debug)
+                    
+                    status = w2luhq.execute()
+                    
+                    output_file = os.path.join(out_path, Path(audio).stem + ".mp4")
+                    shutil.copy2(status[2], output_file)
+                    
+                    print(f"created output: {output_file}")
+            
+            return [None, None, None]
+             
 
         def resume(video, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
                    mask_blur,
@@ -188,5 +231,11 @@ def on_ui_tabs():
             [wav2lip_video, restore_video, result])
 
         interrupt_btn.click(on_interrupt)
+        
+        batch_generate_btn.click(
+            batch_generate,
+            [video, batch_audio_path, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
+             erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right, active_debug, code_former_weight],
+            [wav2lip_video, restore_video, result])
 
     return [(wav2lip_uhq_interface, "Wav2lip Studio", "wav2lip_uhq_interface")]
