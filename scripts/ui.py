@@ -165,7 +165,7 @@ def on_ui_tabs():
 
             return w2luhq.execute()
 
-        def resume(video, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
+        def resume(video,face_swap_img, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
                    mask_blur, active_debug, code_former_weight):
             state.begin()
             if face_swap_img is not None:
@@ -189,7 +189,7 @@ def on_ui_tabs():
 
         resume_btn.click(
             resume,
-            [video, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
+            [video,face_swap_img, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
              mask_blur, active_debug, code_former_weight],
             [faceswap_video, wav2lip_video, restore_video, result])
 

@@ -32,7 +32,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 
 ## 🚀 Updates
 **2023.09.13**
-- 👪 Introduced faceswap: roop integration (See Usage section) **this feature is under experimental**.
+- 👪 Introduced face swap: roop integration (See Usage section) **this feature is under experimental**.
 
 **2023.08.22**
 - 👄 Introduced [bark](https://github.com/suno-ai/bark/) (See Usage section), **this feature is under experimental**.
