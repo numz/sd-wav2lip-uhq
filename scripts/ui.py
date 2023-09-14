@@ -5,6 +5,7 @@ from scripts.wav2lip.w2l import W2l
 from scripts.wav2lip.wav2lip_uhq import Wav2LipUHQ
 from modules.shared import state
 from scripts.bark.tts import TTS
+from scripts.faceswap.swap import FaceSwap
 
 speaker_id = "v2/en_speaker_0"
 
@@ -40,13 +41,13 @@ def on_ui_tabs():
         with gr.Row():
             with gr.Column():
                 with gr.Row():
-                    video = gr.Video(label="Video", format="mp4",
-                                     info="Filepath of video/image that contains faces to use",
-                                     file_types=["mp4", "png", "jpg", "jpeg", "avi"])
-                    """
-                    video = gr.File(label="Video or Image", info="Filepath of video/image that contains faces to use",
-                                    file_types=["mp4", "png", "jpg", "jpeg", "avi"])
-                    """
+                    with gr.Column():
+                        video = gr.Video(label="Video", format="mp4",
+                                         info="Filepath of video/image that contains faces to use",
+                                         file_types=["mp4", "png", "jpg", "jpeg", "avi"])
+                        face_swap_img = gr.Image(label="Face Swap", type="pil")
+                        face_index_slider = gr.Slider(minimum=0, maximum=20, step=1, value=0, label="Face index",
+                                                    info="index of face to swap, left face in image is 0")
 
                     with gr.Column():
                         with gr.Row():
@@ -83,7 +84,7 @@ def on_ui_tabs():
                 with gr.Row():
                     checkpoint = gr.Radio(["wav2lip", "wav2lip_gan"], value="wav2lip_gan", label="Checkpoint",
                                           info="Wav2lip model to use")
-                    face_restore_model = gr.Radio(["CodeFormer", "GFPGAN"], value="CodeFormer",
+                    face_restore_model = gr.Radio(["CodeFormer", "GFPGAN"], value="GFPGAN",
                                                   label="Face Restoration Model",
                                                   info="Model to use")
 
@@ -95,12 +96,12 @@ def on_ui_tabs():
                     with gr.Column():
                         resize_factor = gr.Slider(minimum=1, maximum=4, step=1, label="Resize Factor",
                                                   info="Reduce the resolution by this factor.")
-                        mouth_mask_dilatation = gr.Slider(minimum=0, maximum=64, step=1, value=15,
+                        mouth_mask_dilatation = gr.Slider(minimum=0, maximum=128, step=1, value=15,
                                                           label="Mouth Mask Dilate",
                                                           info="Dilatation of the mask around the mouth (in pixels)")
-                        erode_face_mask = gr.Slider(minimum=0, maximum=64, step=1, value=15, label="Face Mask Erode",
+                        erode_face_mask = gr.Slider(minimum=0, maximum=128, step=1, value=15, label="Face Mask Erode",
                                                     info="Erode the mask around the face (in pixels)")
-                        mask_blur = gr.Slider(minimum=0, maximum=64, step=1, value=15, label="Mask Blur",
+                        mask_blur = gr.Slider(minimum=0, maximum=128, step=1, value=15, label="Mask Blur",
                                               info="Kernel size of Gaussian blur for masking")
                         code_former_weight = gr.Slider(minimum=0, maximum=1, step=0.01, value=0.75,
                                                        label="Code Former Fidelity",
@@ -118,6 +119,7 @@ def on_ui_tabs():
             with gr.Column():
                 with gr.Tabs(elem_id="wav2lip_generated"):
                     with gr.Row():
+                        faceswap_video = gr.Video(label="faceSwap video", format="mp4")
                         wav2lip_video = gr.Video(label="Wav2Lip video", format="mp4")
                         restore_video = gr.Video(label="Restored face video", format="mp4")
                         result = gr.Video(label="Generated video", format="mp4")
@@ -140,7 +142,7 @@ def on_ui_tabs():
 
             return wav
 
-        def generate(video, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor,
+        def generate(video, face_swap_img, face_index, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor,
                      mouth_mask_dilatation, erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right,
                      active_debug, code_former_weight):
             state.begin()
@@ -149,43 +151,47 @@ def on_ui_tabs():
                 print("[ERROR] Please select a video and an audio file")
                 return
 
+            if face_swap_img is not None:
+                face_swap = FaceSwap(video, audio, face_index, face_swap_img, resize_factor, face_restore_model, code_former_weight)
+                video = face_swap.generate()
+
             w2l = W2l(video, audio, checkpoint, no_smooth, resize_factor, pad_top, pad_bottom, pad_left,
-                      pad_right)
+                      pad_right, face_swap_img)
             w2l.execute()
 
             w2luhq = Wav2LipUHQ(video, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur,
-                                only_mouth,
+                                only_mouth, face_swap_img,
                                 resize_factor, code_former_weight, active_debug)
 
             return w2luhq.execute()
 
         def resume(video, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
-                   mask_blur,
-                   active_debug, code_former_weight):
+                   mask_blur, active_debug, code_former_weight):
             state.begin()
-
+            if face_swap_img is not None:
+                face_swap = FaceSwap()
+                video = face_swap.resume()
             w2luhq = Wav2LipUHQ(video, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur,
-                                only_mouth,
-                                resize_factor, code_former_weight, active_debug)
+                                only_mouth, resize_factor, code_former_weight, active_debug)
 
             return w2luhq.execute(True)
 
         generate_audio.click(
             gen_audio,
-            [suno_prompt,temperature, silence, low_vram],
+            [suno_prompt, temperature, silence, low_vram],
             audio)
 
         generate_btn.click(
             generate,
-            [video, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
+            [video, face_swap_img, face_index_slider, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
              erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right, active_debug, code_former_weight],
-            [wav2lip_video, restore_video, result])
+            [faceswap_video, wav2lip_video, restore_video, result])
 
         resume_btn.click(
             resume,
             [video, face_restore_model, only_mouth, resize_factor, mouth_mask_dilatation, erode_face_mask,
              mask_blur, active_debug, code_former_weight],
-            [wav2lip_video, restore_video, result])
+            [faceswap_video, wav2lip_video, restore_video, result])
 
         interrupt_btn.click(on_interrupt)
 

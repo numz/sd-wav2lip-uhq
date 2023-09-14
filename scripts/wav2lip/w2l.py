@@ -10,7 +10,7 @@ from pkg_resources import resource_filename
 
 
 class W2l:
-    def __init__(self, face, audio, checkpoint, nosmooth, resize_factor, pad_top, pad_bottom, pad_left, pad_right):
+    def __init__(self, face, audio, checkpoint, nosmooth, resize_factor, pad_top, pad_bottom, pad_left, pad_right, face_swap_img):
         self.wav2lip_folder = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])
         self.static = False
         if os.path.isfile(face) and face.split('.')[1] in ['jpg', 'png', 'jpeg']:
@@ -24,6 +24,7 @@ class W2l:
         self.face_det_batch_size = 16
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.pads = [pad_top, pad_bottom, pad_left, pad_right]
+        self.face_swap_img = face_swap_img
         self.nosmooth = nosmooth
         self.box = [-1, -1, -1, -1]
         self.wav2lip_batch_size = 128
@@ -196,7 +197,7 @@ class W2l:
                 if not still_reading:
                     video_stream.release()
                     break
-                if self.resize_factor > 1:
+                if self.resize_factor > 1 and self.face_swap_img is None:
                     frame = cv2.resize(frame,
                                        (frame.shape[1] // self.resize_factor, frame.shape[0] // self.resize_factor))
 

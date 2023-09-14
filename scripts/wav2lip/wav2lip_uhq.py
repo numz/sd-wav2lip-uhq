@@ -12,9 +12,10 @@ from pkg_resources import resource_filename
 import modules.face_restoration
 from modules import devices
 
+
 class Wav2LipUHQ:
     def __init__(self, face, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur, only_mouth,
-                 resize_factor, code_former_weight, debug=False):
+                 face_swap_img, resize_factor, code_former_weight, debug=False):
         self.wav2lip_folder = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])
         self.original_video = face
         self.face_restore_model = face_restore_model
@@ -22,6 +23,7 @@ class Wav2LipUHQ:
         self.erode_face_mask = erode_face_mask
         self.mask_blur = mask_blur
         self.only_mouth = only_mouth
+        self.face_swap_img = face_swap_img
         self.w2l_video = self.wav2lip_folder + '/results/result_voice.mp4'
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.ffmpeg_binary = self.find_ffmpeg_binary()
@@ -162,7 +164,7 @@ class Wav2LipUHQ:
                 ret, original_frame = vi.read()
 
             if w2l_frame.shape != original_frame.shape:
-                if self.resize_factor > 1:
+                if self.resize_factor > 1 and self.face_swap_img is None:
                     original_frame = cv2.resize(original_frame, (w2l_frame.shape[1], w2l_frame.shape[0]))
                 else:
                     w2l_frame = cv2.resize(w2l_frame, (original_frame.shape[1], original_frame.shape[0]))
@@ -279,8 +281,12 @@ class Wav2LipUHQ:
             else:
                 if os.path.exists(self.wav2lip_folder + "/resume.json"):
                     os.remove(self.wav2lip_folder + "/resume.json")
-
-            return [self.wav2lip_folder + "/results/result_voice.mp4",
+            if self.face_swap_img is None:
+                face_swap_output = None
+            else:
+                face_swap_output = self.wav2lip_folder + "/output/faceswap/video.mp4"
+            return [face_swap_output,
+                    self.wav2lip_folder + "/results/result_voice.mp4",
                     self.wav2lip_folder + "/output/output_video_enhanced.mp4",
                     self.wav2lip_folder + "/output/output_video.mp4"]
         else:
