@@ -184,7 +184,7 @@ This extension operates in several stages to improve the quality of Wav2Lip-gene
 - [ ] Convert avi to mp4. Avi is not show in video input but process work fine
 - [ ] Add Possibility to use a video for audio input
 - [ ] Standalone version
-- [ ] Comfui intergration
+- [ ] ComfyUI intergration
 
 ## 😎 Contributing
 
