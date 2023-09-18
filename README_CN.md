@@ -11,7 +11,7 @@ https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-af
 
 本插件为一体化集成解决方案：只需要一段视频和一段口播音频文件（wav或者mp3），就可以生成一个嘴唇同步的视频。通过Stable Diffusion特别的后处理技术，本插件所生成视频的嘴唇同步效果相比于[Wav2Lip tool](https://github.com/Rudrabha/Wav2Lip)所生成的视频，有更好的质量。
 
-![Illustration](https://user-images.githubusercontent.com/800903/262430428-e091e6ad-b3e0-4e6e-a1e7-e9914add41e8.png)
+![Illustration](https://user-images.githubusercontent.com/800903/267808204-ae971458-9e8d-403e-9e10-9b7b7590d999.png)
 
 ## 📖 快速索引
 * [🚀 更新](#-更新)
@@ -31,6 +31,9 @@ https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-af
 * [☕ 支持Wav2lip Studio](#-支持wav2lip-studio)
 
 ## 🚀 更新
+**2023.09.13**
+- 👪 增加了 face swap 换脸: 整合了roop (参加下方使用方法章节) **本功能为实验性功能**。
+
 **2023.08.22**
 - 👄 增加了 [bark](https://github.com/suno-ai/bark/) (参加下方使用方法章节)， **本功能为实验性功能**。
 
@@ -86,12 +89,15 @@ https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-af
 | landmark predicator |        Dlib 68点人脸特征推测 (点击下载按钮)         |                              [Link](https://github.com/numz/wav2lip_uhq/blob/main/predicator/shape_predictor_68_face_landmarks.dat)                              | extensions\sd-wav2lip-uhq\scripts\wav2lip\predicator\shape_predictor_68_face_landmarks.dat |
 | landmark predicator |              Dlib 68点人脸特征推测 (备用地址1)               | [Link](https://huggingface.co/spaces/asdasdasdasd/Face-forgery-detection/resolve/ccfc24642e0210d4d885bc7b3dbc9a68ed948ad6/shape_predictor_68_face_landmarks.dat) | extensions\sd-wav2lip-uhq\scripts\wav2lip\predicator\shape_predictor_68_face_landmarks.dat |
 | landmark predicator | Dlib 68点人脸特征推测 (备用地址2，点击下载按钮) |                        [Link](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat)                         | extensions\sd-wav2lip-uhq\scripts\wav2lip\predicator\shape_predictor_68_face_landmarks.dat |
+|   face swap model   |                              face swap换脸所用模型                               |[Link](https://huggingface.co/ezioruan/inswapper_128.onnx/resolve/main/inswapper_128.onnx)                                                                                |  extensions\sd-wav2lip-uhq\scripts\faceswap\model\inswapper_128.onnx   |
 
 
 ## 🐍 使用方法
 1. 上传一个包含人脸的视频文件（avi格式或者mp4格式均可）。如果视频里没有人脸，哪怕只有一帧不包含人脸，会导致处理失败。请注意，如果你上传的是avi文件，在界面上你看不见它，但不用担心，插件会正常处理视频。
-2. 上传一个口播音频文件。
-2. 现在音频的输入有两种方式:
+2. 换脸 (耗时很长，需耐心等待):
+   1. **Face Swap**: 选择一张照片用来替换视频里的脸。
+   2. **Face Index**: 如果照片里有多张脸，可以指定其中一个，0 指的是从左到右数的第一个脸。
+3. 上传一个口播音频文件，现在音频的输入有两种方式:
    1. 跟原来一样，在音频输入区域上传口播音频文件。 
    2. 用 [bark](https://github.com/suno-ai/bark/) 插件将文字转成口播语音.
       1. 选择语言 : 土耳其语, 英语, 汉语, 印地语, 意大利语, 日语, 韩语, 葡萄牙语, 俄语, 西班牙语, 波兰语, 德语, 法语
@@ -116,20 +122,20 @@ https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-af
          - ♪ 歌词
          - 大写时用于强调
          - 可以在提示词里单独写[MAN] 或者 [WOMAN]可无视朗读者的选择，将文本用指性别的朗读者
-3. 选择模型 (详见上方表格).
-4. **Padding（填充位移）**: Wav2Lip用它来移动嘴巴位置。如果嘴巴位置不理想，可以用它来微调，通常情况下，不必刻意调整。
-5. **No Smooth（不要平滑）**: 当勾选该选项，将会保持原始嘴部形状不做平滑处理。
-6. **Resize Factor（调整大小）**: 该选项会对视频的分辨率进行调整。默认值是1，如果你需要降低你的视频分辨率，你可以调整它。
-7. **Only Mouth（仅追踪嘴巴）**: 选中该选项，将仅对嘴部进行追踪，这将会移除例如脸颊和下巴的动作。
-8. **Mouth Mask Dilate（嘴部遮罩蒙板扩张）**: 该选项用于调整嘴巴覆盖区域，参数越大，覆盖面积越大，根据嘴巴的大小来作出调整。
-9. **Face Mask Erode（面部遮罩蒙板侵蚀）**: 对脸部外延区域进行渗透侵蚀处理，根据脸型大小作出调整。
-10. **Mask Blur（遮罩模糊）**: 通过对遮罩层进行模糊处理，使其变得更平滑，建议尽量使该参数小于等于 **Mouth Mask Dilate（嘴部遮罩蒙板扩张）** 参数.
-11. **Code Former Fidelity（Code Former保真度）**: 
+4. 选择模型 (详见上方表格).
+5. **Padding（填充位移）**: Wav2Lip用它来移动嘴巴位置。如果嘴巴位置不理想，可以用它来微调，通常情况下，不必刻意调整。
+6. **No Smooth（不要平滑）**: 当勾选该选项，将会保持原始嘴部形状不做平滑处理。
+7. **Resize Factor（调整大小）**: 该选项会对视频的分辨率进行调整。默认值是1，如果你需要降低你的视频分辨率，你可以调整它。
+8. **Only Mouth（仅追踪嘴巴）**: 选中该选项，将仅对嘴部进行追踪，这将会移除例如脸颊和下巴的动作。
+9. **Mouth Mask Dilate（嘴部遮罩蒙板扩张）**: 该选项用于调整嘴巴覆盖区域，参数越大，覆盖面积越大，根据嘴巴的大小来作出调整。
+10. **Face Mask Erode（面部遮罩蒙板侵蚀）**: 对脸部外延区域进行渗透侵蚀处理，根据脸型大小作出调整。
+11. **Mask Blur（遮罩模糊）**: 通过对遮罩层进行模糊处理，使其变得更平滑，建议尽量使该参数小于等于 **Mouth Mask Dilate（嘴部遮罩蒙板扩张）** 参数.
+12. **Code Former Fidelity（Code Former保真度）**: 
     1. 当该参数偏向0时，虽然有更高的画质，但可能会引起人物外观特征改变，以及画面闪烁。
     2. 当该参数偏向1时，虽然降低了画质，但是能更大程度的保留原来人物的外观特征，以及降低画面闪烁。
     3. 不建议该参数低于0.5。为了达到良好的效果，建议在0.75左右进行调整。
-12. **Active debug（启用debug模式）**: 开启该选项，将会在debug目录里逐步执行来生成图片。
-13. 点击“Generate”（生成）按钮。
+13. **Active debug（启用debug模式）**: 开启该选项，将会在debug目录里逐步执行来生成图片。
+14. 点击“Generate”（生成）按钮。
 
 ## 演示教程
 
@@ -153,21 +159,23 @@ https://user-images.githubusercontent.com/800903/262442794-61b1e32f-3f87-4b36-98
 
 https://user-images.githubusercontent.com/800903/262449305-901086a3-22cb-42d2-b5be-a5f38db4549a.mp4
 
+https://user-images.githubusercontent.com/800903/267808494-300f8cc3-9136-4810-86e2-92f2114a5f9a.mp4
+
 ## 📖 后台原理
 
 本扩展分几个流程运行，以此达到提高Wav2Lip生成的视频的质量的效果：
 
-1. **Generate a Wav2lip video（生成Wav2lip视频）**: 该脚本先使用输入的视频和音频生成低质量的Wav2Lip视频。
-2. **Video Quality Enhancement（视频质量增强）**: 根据用户选择的面部修复模型来将低清视频转化成高清的视频。
-3. **Mask Creation（创建遮罩蒙板）**: 该脚本在嘴巴周围制作了一个遮罩蒙板，并试图保持其他面部动作，比如脸颊和下巴的动作。
-4. **Video Generation（生成视频）***: 该脚本会获取高质量的嘴巴图像，并将其覆盖在由嘴部遮罩引导的原始图像上。
-5. **Video Post Processing（后期合成）**: 该脚本调用ffmpeg生成最终版本的视频。
+1. **Generate face swap video**: 如果face swap提供了需要替换脸部的图片，那会先将原始视频进行脸部替换，该操作耗时很长，需耐心等待。
+2. **Generate a Wav2lip video（生成Wav2lip视频）**: 该脚本先使用输入的视频和音频生成低质量的Wav2Lip视频。
+3. **Video Quality Enhancement（视频质量增强）**: 根据用户选择的面部修复模型来将低清视频转化成高清的视频。
+4. **Mask Creation（创建遮罩蒙板）**: 该脚本在嘴巴周围制作了一个遮罩蒙板，并试图保持其他面部动作，比如脸颊和下巴的动作。
+5. **Video Generation（生成视频）***: 该脚本会获取高质量的嘴巴图像，并将其覆盖在由嘴部遮罩引导的原始图像上。
+6. **Video Post Processing（后期合成）**: 该脚本调用ffmpeg生成最终版本的视频。
 
 ## 💪 提高质量的小提示
 - 使用高质量的视频作为输入源
 - 使用常见FPS（譬如24fps、25fps、30fps、60fps）的视频，如果不是常见的FPS，偶尔会出现一些问题，譬如面部遮罩蒙板处理。
 - 使用高质量的音频源文件，不要有音乐，不要有背景白噪声。使用类似 [https://podcast.adobe.com/enhance](https://podcast.adobe.com/enhance) 的工具清除背景音乐。
-- 尽量减少面部纹理。譬如，在输入到Wav2lip之前，你可以使用图生图里的“面部修复”功能对面部进行一次修复。
 - 扩大嘴部遮罩蒙板范围。这将有助于模型保留一些面部动作，并盖住原来的嘴巴。
 - “遮罩模糊”（Mask Blur）的最大值是“嘴部遮罩蒙板扩张”（Mouth Mask Dilate）值的两倍。如果要增加模糊度，请增加“嘴部遮罩蒙板扩张”的值，否则嘴巴将变得模糊，并且可以看到下面的嘴巴。
 - 高清放大有利于提高质量，尤其是在嘴巴周围。但是，它将使处理时间变长。你可以参考Olivio Sarikas的教程来高清放大处理你的视频: [https://www.youtube.com/watch?v=3z4MKUqFEUk](https://www.youtube.com/watch?v=3z4MKUqFEUk). 确保去噪强度设置在0.0和0.05之间，选择“revAnimated”模型，并使用批处理模式。回头我再补个简单的教程说明。
@@ -186,6 +194,8 @@ https://user-images.githubusercontent.com/800903/262449305-901086a3-22cb-42d2-b5
 - [ ] 教程指引
 - [ ] 将avi转mp4（目前avi文件在输入框不显示，但依然能正常工作）
 - [ ] 可用视频文件作为音频的输入
+- [ ] 独立版本
+- [ ] ComfyUI 插件
 
 ## 😎 贡献
 
@@ -195,6 +205,7 @@ https://user-images.githubusercontent.com/800903/262449305-901086a3-22cb-42d2-b5
 - [Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
 - [CodeFormer](https://github.com/sczhou/CodeFormer)
 - [bark](https://github.com/suno-ai/bark/)
+- [roop](https://github.com/s0md3v/sd-webui-roop)
 
 ## ☕ 支持Wav2lip Studio
 
