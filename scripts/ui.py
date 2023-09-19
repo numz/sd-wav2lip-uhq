@@ -184,6 +184,11 @@ def on_ui_tabs():
             counter = 0
             for file_type in ["*.wav", "*.mp3"]:
                 for audio in glob.glob(os.path.join(audio_path, file_type)):
+                    output_file = os.path.join(out_path, Path(audio).stem + ".mp4")
+                    if os.path.exists(output_file):
+                        print(f"file {output_file} exists. skipping")
+                        continue
+                    
                     counter += 1
                     print(f"processing {audio} [{counter}]")
                     
@@ -194,7 +199,7 @@ def on_ui_tabs():
                     
                     status = w2luhq.execute()
                     
-                    output_file = os.path.join(out_path, Path(audio).stem + ".mp4")
+                    
                     shutil.copy2(status[2], output_file)
                     
                     print(f"created output: {output_file}")
