@@ -160,8 +160,7 @@ def on_ui_tabs():
             w2l.execute()
 
             w2luhq = Wav2LipUHQ(video, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur,
-                                only_mouth, face_swap_img,
-                                resize_factor, code_former_weight, active_debug)
+                                only_mouth, face_swap_img, resize_factor, code_former_weight, active_debug)
 
             return w2luhq.execute()
 
@@ -172,7 +171,7 @@ def on_ui_tabs():
                 face_swap = FaceSwap()
                 video = face_swap.resume()
             w2luhq = Wav2LipUHQ(video, face_restore_model, mouth_mask_dilatation, erode_face_mask, mask_blur,
-                                only_mouth, resize_factor, code_former_weight, active_debug)
+                                only_mouth, face_swap_img, resize_factor, code_former_weight, active_debug)
 
             return w2luhq.execute(True)
 

@@ -32,7 +32,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 
 ## 🚀 Updates
 **2023.09.13**
-- 👪 Introduced face swap: roop integration (See Usage section) **this feature is under experimental**.
+- 👪 Introduced face swap: facefusion integration (See Usage section) **this feature is under experimental**.
 
 **2023.08.22**
 - 👄 Introduced [bark](https://github.com/suno-ai/bark/) (See Usage section), **this feature is under experimental**.
@@ -68,7 +68,8 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 ## 💻 Installation
 
 1. Launch Automatic1111
-2. In the extensions tab, enter the following URL in the "Install from URL" field and click "Install":
+2. Face Swap : On Windows, download and install [Visual Studio](https://visualstudio.microsoft.com/fr/downloads/). During the install, make sure to include the Python and C++ packages.
+3. In the extensions tab, enter the following URL in the "Install from URL" field and click "Install":
 
 ![Illustration](https://user-images.githubusercontent.com/800903/258115646-22b4b363-c363-4fc8-b316-c162b61b5d15.png)
 
@@ -135,6 +136,7 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
     3. Using a value below 0.5 is not advised. Adjust this setting to achieve optimal results. Starting with a value of 0.75 is recommended.
 13. **Active debug**: This will create step-by-step images in the debug folder.
 14. Click on the "Generate" button.
+15. ⚠ "resume" button can be use if face swap and wav2lip step have been done, then you can adjust "mouth mask dilate", "face mask erode", "mask blur" and change "restoration model" without regenerate face swap and wav2lip.
 
 ## 👄 Note on the bark Fidelity
 
@@ -172,7 +174,7 @@ This extension operates in several stages to improve the quality of Wav2Lip-gene
 - Ensure there is a face on each frame of the video. If the face is not detected, process will stop.
 
 ## ⚠ Noted Constraints
-- The model may struggle with beards.
+- for speed up process try to keep resolution under 1000x1000px, so use resize factor and upscaling after process.
 - If the initial phase is excessively lengthy, consider using the "resize factor" to decrease the video's dimensions.
 - While there's no strict size limit for videos, larger videos will require more processing time. It's advisable to employ the "resize factor" to minimize the video size and then upscale the video once processing is complete.
 
@@ -194,7 +196,7 @@ We welcome contributions to this project. When submitting pull requests, please 
 - [Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
 - [CodeFormer](https://github.com/sczhou/CodeFormer)
 - [bark](https://github.com/suno-ai/bark/)
-- [roop](https://github.com/s0md3v/sd-webui-roop)
+- [facefusion](https://github.com/facefusion/facefusion)
 
 ## ☕ Support Wav2lip Studio
 
