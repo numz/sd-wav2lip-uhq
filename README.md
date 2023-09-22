@@ -73,13 +73,13 @@ It's an all-in-one solution: just choose a video and a speech file (wav or mp3),
 
 ![Illustration](https://user-images.githubusercontent.com/800903/258115646-22b4b363-c363-4fc8-b316-c162b61b5d15.png)
 
-3. Go to the "Installed Tab" in the extensions tab and click "Apply and quit".
+4. Go to the "Installed Tab" in the extensions tab and click "Apply and quit".
 
 ![Illustration](https://user-images.githubusercontent.com/800903/258115651-196a07bd-ee4b-4aaf-b11e-8e2d1ffaa42f.png)
 
-4. If you don't see the "Wav2Lip UHQ tab" restart Automatic1111.
+5. If you don't see the "Wav2Lip UHQ tab" restart Automatic1111.
 
-5. 🔥 Important: Get the weights. Download the model weights from the following locations and place them in the corresponding directories (take care about the filename, especially for s3fd)
+6. 🔥 Important: Get the weights. Download the model weights from the following locations and place them in the corresponding directories (take care about the filename, especially for s3fd)
 
 |        Model        |                                    Description                                     |                                                                            Link to the model                                                                             |                                       install folder                                       |
 |:-------------------:|:----------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------:|
