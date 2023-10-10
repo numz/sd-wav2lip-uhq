@@ -132,6 +132,7 @@ def on_ui_tabs():
             with gr.Column():
                 with gr.Row():
                     batch_audio_path = gr.Textbox(label="Local audio files path", placeholder="Local audio files path", lines=2, type="text",info="Place local path to batch process audio files")
+                    batch_video_variant_path = gr.Textbox(label="Local video variant files path", placeholder="Local video variant files path", lines=2, type="text",info="Include \"__VARIANT_NAME.wav\" pattern in the audio files and include path to VARIANT_NAME.mp4 files here.")
                     batch_generate_btn = gr.Button("Batch Generate")
 
         def on_interrupt():
@@ -170,10 +171,10 @@ def on_ui_tabs():
         
         def batch_generate(video, audio_path, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor,
                      mouth_mask_dilatation, erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right,
-                     active_debug, code_former_weight):
+                     active_debug, code_former_weight, batch_video_variant_path=None):
             state.begin()
             
-            if video is None or audio_path is None:
+            if (video is None and batch_video_variant_path is None) or audio_path is None:
                 print("[ERROR] Please select a video and an audio file")
                 return
             
@@ -188,6 +189,17 @@ def on_ui_tabs():
                     if os.path.exists(output_file):
                         print(f"file {output_file} exists. skipping")
                         continue
+
+                    if batch_video_variant_path:
+                        variant = Path(audio).stem.split("__")
+                        if len(variant) == 1:
+                            print("[ERROR] No variant information in audio file name")
+                            return
+                        if len(variant) > 2:
+                            print("[ERROR] Audio file name should have only one \"__\" pattern")
+                            return
+                        
+                        video = os.path.join(batch_video_variant_path, f"{variant[1]}.mp4")
                     
                     counter += 1
                     print(f"processing {audio} [{counter}]")
@@ -240,7 +252,7 @@ def on_ui_tabs():
         batch_generate_btn.click(
             batch_generate,
             [video, batch_audio_path, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
-             erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right, active_debug, code_former_weight],
+             erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right, active_debug, code_former_weight, batch_video_variant_path],
             [wav2lip_video, restore_video, result])
 
     return [(wav2lip_uhq_interface, "Wav2lip Studio", "wav2lip_uhq_interface")]
