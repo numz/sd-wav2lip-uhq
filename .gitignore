@@ -8,6 +8,9 @@ scripts/wav2lip/checkpoints/lipsync_expert_.pth
 scripts/wav2lip/face_detection/detection/sfd/s3fd.pth
 scripts/wav2lip/predicator/shape_predictor_68_face_landmarks.dat
 scripts/wav2lip/output/debug/*.png
+scripts/wav2lip/output/face_enhanced/*.png
+scripts/wav2lip/output/faceswap/*.png
+scripts/wav2lip/output/faceswap/*.mp4
 scripts/wav2lip/output/final/*.png
 scripts/wav2lip/output/images/*.png
 scripts/wav2lip/output/masks/*.png
