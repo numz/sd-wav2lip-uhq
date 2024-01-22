@@ -38,6 +38,8 @@ def on_ui_tabs():
     with gr.Blocks(analytics_enabled=False) as wav2lip_uhq_interface:
         gr.Markdown(
             "<div align='center'> <h3><a href='https://github.com/numz/sd-wav2lip-uhq'> Follow installation instructions here </a> </h3> </div>")
+        gr.Markdown(
+            "<div align='center'> <h3><a href='https://www.patreon.com/Wav2LipStudio'> STANDALONE VERSION AVAILABLE HERE </a> </h3> </div>")
         with gr.Row():
             with gr.Column():
                 with gr.Row():

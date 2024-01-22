@@ -5,6 +5,22 @@
 <img src="https://user-images.githubusercontent.com/800903/258130805-26d9732f-4d33-4c7e-974e-7af2f1261768.gif" width="100%">
 
 https://user-images.githubusercontent.com/800903/262435301-af205a91-30d7-43f2-afcc-05980d581fe0.mp4
+## **STANDALONE VERSION CAN BE FOUND HERE** : [WAV2LIP STUDIO STANDALONE](https://www.patreon.com/Wav2LipStudio)
+In the standalone version you can :
+- ♻ Manage project: Add a feature to manage multiple project
+- 👪 Introduced multiple face swap: Can now Swap multiple face in one shot
+- ⛔ Visible face restriction: Can now make whole process even if no face detected on frame!
+- 📺 Video Size: works with high resolution video input, (test with 1980x1080, should works with 4K but slow)
+- 🔑 Keyframe manager: Add a keyframe manager for better control of the video generation
+- 🍪 coqui TTS integration: Remove bark integration, use coqui TTS instead
+- 💬 Conversation: Add a conversation feature with multiple person
+- 🔈 Record your own voice: Add a feature to record your own voice
+- 👬 Clone voice: Add a feature to clone voice from video
+- 🎏 translate video: Add a feature to translate video with voice clone (HEYGEN like)
+- 🔉 Volume amplifier for wav2lip: Add a feature to amplify the volume of the wav2lip output
+- 🕡 Add delay before sound speech start
+- 🚀 Speed up process: Speed up the process
+
 
 ## 💡 Description
 This repository contains a Wav2Lip Studio extension for Automatic1111. 
